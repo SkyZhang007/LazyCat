@@ -1,0 +1,41 @@
+buildscript {
+    repositories {
+        jcenter()
+        google()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.2.0-rc03'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        google()
+        maven{url "https://jitpack.io"}
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext {
+    BuildToolsVersion = "28.0.3"
+    SupportLibVersion = '28.0.0'
+    CompileSdkVersion = 28
+    MinSdkVersion = 16
+    TargetSdkVersion = 28
+    GlideVersion = '3.7.0'
+    RetrofitVersion = '2.2.0'
+    ButterknifeVersion = '8.8.1'
+    BannerVersion = '1.4.9'
+    CardBannerVersion = 'v2.0.0'
+    RxJavaVersion = '2.2.4'
+    RxAndroidVersion = '2.1.0'
+    Rxjava2AdapterVersion = '2.5.0'
+    OkHttpVersion = '3.4.1'
+    OkHttpLoggingVersion = '3.4.1'
+    LifecycleVersion = '1.1.1'
+    Bindingcollectionadapter = '2.2.0'
+}

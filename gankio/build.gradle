@@ -1,0 +1,85 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.ext.CompileSdkVersion
+    buildToolsVersion rootProject.ext.BuildToolsVersion
+
+    defaultConfig {
+        applicationId "com.sky.test"
+        minSdkVersion rootProject.ext.MinSdkVersion
+        targetSdkVersion rootProject.ext.TargetSdkVersion
+        vectorDrawables.useSupportLibrary = true
+        flavorDimensions "default"
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [UMENG_CHANNEL_VALUE : "default"]
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            splits.abi.enable = false
+            splits.density.enable = false
+            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+    productFlavors {
+        development {
+            minSdkVersion 21
+        }
+    }
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion rootProject.ext.SupportLibVersion
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation "com.android.support:design:$rootProject.ext.SupportLibVersion"
+    implementation "com.android.support:support-vector-drawable:$rootProject.ext.SupportLibVersion"
+    implementation "com.android.support:appcompat-v7:$rootProject.ext.SupportLibVersion"
+    // RxJava 和 RxAndroid
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.ext.RxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.ext.RxAndroidVersion"
+    //retrofit
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.ext.RetrofitVersion"
+    //rxjava适配器
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.ext.Rxjava2AdapterVersion"
+    //Gson converter
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.ext.RetrofitVersion"
+    //okhttp
+    implementation "com.squareup.okhttp3:okhttp:$rootProject.ext.OkHttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.ext.OkHttpLoggingVersion"
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$rootProject.ext.GlideVersion"
+    // alternatively - Lifecycles only (no ViewModel or LiveData).
+    implementation "android.arch.lifecycle:runtime:$rootProject.ext.LifecycleVersion"
+    // use kapt for Kotlin
+    annotationProcessor "android.arch.lifecycle:compiler:$rootProject.ext.LifecycleVersion"
+    // ViewModel and LiveData
+    implementation "android.arch.lifecycle:extensions:$rootProject.ext.LifecycleVersion"
+    // optional - ReactiveStreams support for LiveData
+    implementation "android.arch.lifecycle:reactivestreams:$rootProject.ext.LifecycleVersion"
+    // binding recycler adapter
+    implementation "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:$rootProject.ext.Bindingcollectionadapter"
+    implementation "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:$rootProject.ext.Bindingcollectionadapter"
+    testImplementation 'junit:junit:4.12'
+}

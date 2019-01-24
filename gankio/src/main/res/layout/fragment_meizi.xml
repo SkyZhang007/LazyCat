@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/tools">
+    <data>
+        <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
+        <import type="android.support.v7.widget.LinearLayoutManager" />
+        <variable name="meiziViewModel"
+            type="com.sky.gank.meizi.MeiziViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:padding="@dimen/dimen_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            bind:onRefreshCommand="@{meiziViewModel.onRefreshCommand}"
+            bind:refreshing="@{meiziViewModel.mRefreshing}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                bind:layoutManager="@{LayoutManagers.staggeredGrid(2,LinearLayoutManager.VERTICAL)}"
+                bind:adapter="@{meiziViewModel.mAdapter}"
+                bind:itemBinding="@{meiziViewModel.mMeiziItem}"
+                bind:items="@{meiziViewModel.mObservableMeizi}"
+                bind:onLoadMoreCommand="@{meiziViewModel.loadMore}"/>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+    </LinearLayout>
+
+</layout>

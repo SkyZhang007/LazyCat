@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable name="gankTitle" type="com.sky.gank.gank.GankItemViewModel" />
+    </data>
+
+    <LinearLayout
+        android:padding="@dimen/dimen_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/gank_detail_margin"
+            android:visibility="@{gankTitle.mFirstItem.get()?View.VISIBLE:View.GONE}"/>
+
+        <TextView
+            android:paddingBottom="@dimen/dimen_4"
+            android:text="@{gankTitle.mGank.titleType}"
+            android:textSize="@dimen/gank_title"
+            android:textColor="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1"
+            android:background="@color/colorPrimary"/>
+
+    </LinearLayout>
+
+</layout>

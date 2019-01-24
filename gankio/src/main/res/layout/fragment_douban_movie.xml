@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
+        <variable name="doubanMovieViewModel"
+            type="com.sky.gank.douban.DoubanMovieViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/srl_refresh"
+            bind:onRefreshCommand="@{doubanMovieViewModel.onRefreshCommand}"
+            bind:refreshing="@{doubanMovieViewModel.mRefreshing}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                bind:layoutManager="@{LayoutManagers.linear()}"
+                bind:adapter="@{doubanMovieViewModel.mAdapter}"
+                bind:items="@{doubanMovieViewModel.mObservableList}"
+                bind:itemBinding="@{doubanMovieViewModel.mItem}"
+                bind:onLoadMoreCommand="@{doubanMovieViewModel.loadMore}"/>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+    </LinearLayout>
+
+</layout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="meiziItem"
+            type="com.sky.gank.meizi.MeiziItemViewModel"/>
+    </data>
+
+    <android.support.design.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/CardViewStyle">
+
+        <LinearLayout
+            android:padding="1dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.sky.gank.widget.RatioImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                bind:onClickCommand="@{meiziItem.mItemClick}"
+                bind:imageUrl="@{meiziItem.bean.url}"
+                bind:placeholder="@{meiziItem.drawableImg}"/>
+
+            <android.support.design.button.MaterialButton
+                android:text="@{meiziItem.bean.desc}"
+                style="@style/TextButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/meizi_text_button_height" />
+
+        </LinearLayout>
+
+    </android.support.design.card.MaterialCardView>
+
+</layout>
