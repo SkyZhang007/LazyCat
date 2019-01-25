@@ -22,9 +22,11 @@
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:gravity">center_vertical</item>
         <item name="rippleColor">@color/colorPrimary</item>
-
     </style>
 
+    <style name="RatingBarStyle" parent="Base.Widget.AppCompat.RatingBar.Small">
+
+    </style>
 
 
 </resources>

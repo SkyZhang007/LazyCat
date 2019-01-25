@@ -35,7 +35,7 @@ public class DoubanMovieViewModel extends BaseViewModel {
     // adapter
     public final MyRecyclerViewAdapter<DoubanMovieItemViewModel> mAdapter = new MyRecyclerViewAdapter<>();
     // item binding
-    public final ItemBinding<DoubanMovieItemViewModel> mItem = ItemBinding.of(BR.item, R.layout.item_douban_movie);
+    public final ItemBinding<DoubanMovieItemViewModel> mItem = ItemBinding.of(BR.item, R.layout.item_douban_movies);
     private int mLoadPage = 1;
     private int mLoadSize = 20;
     private DoubanMovieDataSource mDoubanMovieDataSource;
