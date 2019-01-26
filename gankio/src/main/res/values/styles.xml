@@ -25,7 +25,6 @@
     </style>
 
     <style name="RatingBarStyle" parent="Base.Widget.AppCompat.RatingBar.Small">
-
     </style>
 
 

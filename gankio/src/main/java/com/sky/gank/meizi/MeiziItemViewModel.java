@@ -20,6 +20,7 @@ import com.sky.gank.data.gank.GankBean;
 import com.sky.gank.data.meizi.MeiziData;
 import com.sky.gank.gank.GankActivity;
 import com.sky.gank.util.VersionUtil;
+import com.sky.gank.util.ViewUtil;
 
 /**
  * 类名称：
@@ -42,7 +43,10 @@ public class MeiziItemViewModel extends ItemViewModel<MeiziViewModel> {
     public BindingCommand<View> mItemClick = new BindingCommand<>(new BindingConsumer<View>() {
         @Override
         public void call(View view) {
-            Context currentActivity = view.getContext();
+            Context currentActivity = ViewUtil.getActivityFromView(view);
+            if(null == currentActivity){
+                return;
+            }
             Intent intent = new Intent(currentActivity,GankActivity.class);
             //创建传输bean
             GankBean gankBean = new GankBean();

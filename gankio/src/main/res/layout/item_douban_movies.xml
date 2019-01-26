@@ -22,6 +22,8 @@
                 android:id="@+id/riv_movie"
                 android:layout_width="@dimen/douban_item_image_width"
                 android:layout_height="@dimen/douban_item_image_width"
+                tools:scaleHeight="1.4"
+                tools:scaleWidth="1"
                 android:scaleType="fitXY"
                 android:adjustViewBounds="true"
                 bind:imageUrl="@{item.bean.images.medium}"
@@ -54,7 +56,7 @@
                 android:layout_below="@+id/tv_movie_subtitle"
                 android:layout_marginStart="@dimen/dimen_16"
                 android:layout_toEndOf="@+id/riv_movie"
-                android:text="@{item.bean.year}"
+                android:text="@{@string/movie_year_format(item.bean.year)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dimen_16"
@@ -76,6 +78,7 @@
                 android:layout_marginStart="@dimen/dimen_16"
                 android:layout_marginBottom="@dimen/dimen_16"
                 android:layout_below="@+id/riv_movie"
+                android:layout_toLeftOf="@id/tv_rating"
                 android:text="@string/movie_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -84,7 +87,7 @@
             <RatingBar
                 android:id="@+id/rb_movie"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="@dimen/dimen_8"
+                android:layout_marginTop="@dimen/dimen_18"
                 android:layout_marginBottom="@dimen/dimen_8"
                 android:layout_marginEnd="@dimen/dimen_16"
                 style="@style/RatingBarStyle"
@@ -99,10 +102,17 @@
                 android:layout_marginRight="@dimen/dimen_16" />
 
             <TextView
+                android:id="@+id/tv_rating"
+                android:paddingLeft="@dimen/dimen_8"
+                android:paddingRight="@dimen/dimen_8"
+                android:text="@{item.bean.rating.stars}"
+                android:layout_marginTop="@dimen/dimen_16"
                 android:layout_below="@+id/riv_movie"
-                android:layout_alignParentRight="true"
+                android:layout_marginBottom="@dimen/dimen_16"
+                android:layout_toLeftOf="@+id/rb_movie"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
 
         </RelativeLayout>
 
