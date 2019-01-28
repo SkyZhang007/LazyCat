@@ -3,12 +3,15 @@ package com.sky.gank.meizi;
 import android.app.Application;
 import android.arch.lifecycle.Lifecycle;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 import android.support.annotation.NonNull;
+import android.support.v4.content.res.ResourcesCompat;
 
 import com.sky.gank.BR;
 import com.sky.gank.R;
 import com.sky.gank.base.BaseResponse;
+import com.sky.gank.base.BaseToolbar;
 import com.sky.gank.base.BaseViewModel;
 import com.sky.gank.base.MyRecyclerViewAdapter;
 import com.sky.gank.command.BindingAction;
@@ -37,17 +40,13 @@ public class MeiziViewModel extends BaseViewModel{
     // item binding
     public final ItemBinding<MeiziItemViewModel> mMeiziItem = ItemBinding.of(BR.meiziItem, R.layout.item_meizi);
     private final MeiziDataSource mMeiziDataSource;
-    // 可以指定不同的布局
-//    public final OnItemBindClass<MeiziItemViewModel> mItemBinding = new OnItemBindClass<>()
-//            .map(NoDataViewModel.class,BR.noData,R.layout.listitem_no_data)
-//            .map(ItemViewModel.class,BR.itemVM,R.layout.listitem_page);
-//    private final MediatorLiveData<MeiziData> mLiveMeizi;
     private int mLoadPage = 1;
     private int mLoadSize = 10;
 
     public MeiziViewModel(@NonNull Application application, PublishSubject<Lifecycle.Event> publishSubject, MeiziDataSource meiziDataSource) {
         super(application, publishSubject);
         this.mMeiziDataSource = meiziDataSource;
+        initToolbar(R.string.title_meizi,R.color.colorPrimary,null);
     }
 
     public BindingCommand onRefreshCommand = new BindingCommand(new BindingAction() {

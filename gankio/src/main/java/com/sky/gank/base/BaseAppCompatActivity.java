@@ -38,7 +38,7 @@ public abstract class BaseAppCompatActivity<V extends ViewDataBinding, VM extend
         mLifecycleSubject.onNext(Lifecycle.Event.ON_CREATE);
         LogUtils.i(BASE_TAG,getClass().getSimpleName());
         initViewDataBinding();
-        initToolbar();
+//        initToolbar();
         if(null != getIntent()){
             getIntentData(getIntent());
         }

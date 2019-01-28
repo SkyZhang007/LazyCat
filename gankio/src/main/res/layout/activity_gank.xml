@@ -29,27 +29,31 @@
                 <com.sky.gank.widget.RatioImageView
                     bind:imageUrl="@{gankViewModel.mBean.imageUrl}"
                     bind:placeholder="@{gankViewModel.drawableImg}"
+                    app:scaleHeight="1.2"
+                    app:scaleWidth="1"
+                    android:scaleType="centerCrop"
+                    android:transitionName="item_photo"
                     app:layout_collapseMode="parallax"
-                    android:scaleType="fitXY"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
                 <include
+                    bind:toolbar="@{gankViewModel.mToolbar}"
                     layout="@layout/include_toolbar" />
 
             </android.support.design.widget.CollapsingToolbarLayout>
 
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_fav"
-            android:layout_margin="@dimen/dimen_16"
-            style="@style/FloatingActionButtonOverlay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_star_border_white_24dp"
-            app:layout_anchor="@+id/appbar"
-            app:layout_anchorGravity="bottom|end"/>
+        <!--<android.support.design.widget.FloatingActionButton-->
+            <!--android:id="@+id/fab_fav"-->
+            <!--android:layout_margin="@dimen/dimen_16"-->
+            <!--style="@style/FloatingActionButtonOverlay"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:srcCompat="@drawable/ic_star_border_white_24dp"-->
+            <!--app:layout_anchor="@+id/appbar"-->
+            <!--app:layout_anchorGravity="bottom|end"/>-->
 
         <android.support.v4.widget.SwipeRefreshLayout
             app:layout_behavior="@string/appbar_scrolling_view_behavior"

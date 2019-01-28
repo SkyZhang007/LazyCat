@@ -1,13 +1,19 @@
 package com.sky.gank.bindingadapter;
 
+import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.graphics.drawable.Drawable;
+import android.support.design.chip.Chip;
+import android.support.design.chip.ChipGroup;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.DrawableRequestBuilder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.sky.gank.util.ViewUtil;
+
+import java.util.List;
 
 /**
  * 类名称：
@@ -28,6 +34,20 @@ public class BindingAdapters {
 //                    .centerCrop()
                     .placeholder(placeholder)
                     .into(imageView);
+        }
+    }
+
+    @BindingAdapter(value={"chipsList"},requireAll=false)
+    public static void addChip(ChipGroup chipGroup, List<String> chipsList){
+        Context context = ViewUtil.getActivityFromView(chipGroup);
+        if(!chipsList.isEmpty() && null != context){
+            int size = chipsList.size();
+            for (int i = 0; i < size; i++){
+                Chip chip = new Chip(context);
+                chip.setText(chipsList.get(i));
+                chip.setChipCornerRadius(16f);
+                chipGroup.addView(chip);
+            }
         }
     }
 

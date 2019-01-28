@@ -52,8 +52,4 @@ public class GankActivity extends BaseAppCompatActivity<ActivityGankBinding,Gank
         },400);
     }
 
-    @Override
-    protected boolean isShowBacking() {
-        return true;
-    }
 }

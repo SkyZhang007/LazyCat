@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import com.sky.gank.BR;
 import com.sky.gank.R;
 import com.sky.gank.base.BaseResponse;
+import com.sky.gank.base.BaseToolbar;
 import com.sky.gank.base.BaseViewModel;
 import com.sky.gank.base.MyRecyclerViewAdapter;
 import com.sky.gank.command.BindingAction;
@@ -44,6 +45,11 @@ public class DoubanMovieViewModel extends BaseViewModel {
                                 DoubanMovieDataSource doubanMovieDataSource) {
         super(application, publishSubject);
         this.mDoubanMovieDataSource = doubanMovieDataSource;
+
+        initToolbar(new BaseToolbar.Builder(application.getBaseContext())
+                .setBackgroundRes(R.color.colorPrimary)
+                .setTitleRes(R.string.title_douban)
+                .build());
     }
 
     public BindingCommand onRefreshCommand = new BindingCommand(new BindingAction() {

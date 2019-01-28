@@ -9,12 +9,15 @@
     </data>
 
     <LinearLayout
-        android:padding="@dimen/dimen_4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <include layout="@layout/include_toolbar"
+            bind:toolbar="@{meiziViewModel.mToolbar}"/>
+
         <android.support.v4.widget.SwipeRefreshLayout
+            android:padding="@dimen/dimen_4"
             bind:onRefreshCommand="@{meiziViewModel.onRefreshCommand}"
             bind:refreshing="@{meiziViewModel.mRefreshing}"
             android:layout_width="match_parent"

@@ -5,7 +5,9 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.Lifecycle;
 import android.databinding.ObservableField;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.v4.content.res.ResourcesCompat;
 
 import com.sky.gank.net.HttpUtil;
 import com.sky.gank.net.rxutil.DataCallback;
@@ -13,12 +15,9 @@ import com.sky.gank.util.LogUtils;
 
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Completable;
-import io.reactivex.CompletableObserver;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.subjects.PublishSubject;
 
@@ -34,6 +33,7 @@ public abstract class BaseViewModel extends AndroidViewModel {
     private final CompositeDisposable mDisposable = new CompositeDisposable();
     public final ObservableField<Boolean> mRefreshing = new ObservableField<>();
     private final PublishSubject<Lifecycle.Event> mLifeEvent;
+    public final ObservableField<BaseToolbar> mToolbar = new ObservableField<>();
 
     public BaseViewModel(@NonNull Application application,PublishSubject<Lifecycle.Event> publishSubject) {
         super(application);
@@ -83,6 +83,10 @@ public abstract class BaseViewModel extends AndroidViewModel {
     }
 
     protected void onDataResponse(BaseResponse response){
+    }
+
+    protected void initToolbar(BaseToolbar baseToolbar){
+        mToolbar.set(baseToolbar);
     }
 
 }

@@ -8,11 +8,13 @@ import android.databinding.ObservableList;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.text.TextUtils;
 
 import com.sky.gank.R;
 import com.sky.gank.BR;
 import com.sky.gank.base.BaseResponse;
+import com.sky.gank.base.BaseToolbar;
 import com.sky.gank.base.BaseViewModel;
 import com.sky.gank.base.MyRecyclerViewAdapter;
 import com.sky.gank.command.BindingAction;
@@ -60,6 +62,11 @@ public class GankViewModel extends BaseViewModel {
         super(application, publishSubject);
         this.mGankDataSource = gankDataSource;
         drawableImg = ContextCompat.getDrawable(application, R.mipmap.ic_launcher);
+
+        initToolbar(new BaseToolbar.Builder(application.getBaseContext())
+                .setBackgroundRes(R.color.colorPrimary)
+                .setTitleRes(R.string.title_meizi)
+                .build());
     }
 
     public BindingCommand onRefreshCommand = new BindingCommand(new BindingAction() {

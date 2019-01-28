@@ -27,6 +27,7 @@
                 app:scaleWidth="1"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
+                android:transitionName="item_photo"
                 bind:onClickCommand="@{meiziItem.mItemClick}"
                 bind:imageUrl="@{meiziItem.bean.url}"
                 bind:placeholder="@{meiziItem.drawableImg}"/>

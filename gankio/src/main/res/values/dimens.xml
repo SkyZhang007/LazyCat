@@ -1,5 +1,6 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
+    <dimen name="dimen_0.5" tools:ignore="MissingDefaultResource">0.5dp</dimen>
     <dimen name="dimen_1">1dp</dimen>
     <dimen name="dimen_4">4dp</dimen>
     <dimen name="dimen_8">8dp</dimen>

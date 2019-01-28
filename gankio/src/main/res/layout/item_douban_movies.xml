@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.text.TextUtils"/>
+        <import type="android.view.View"/>
         <variable name="item"
             type="com.sky.gank.douban.DoubanMovieItemViewModel" />
     </data>
@@ -21,7 +23,7 @@
             <com.sky.gank.widget.RatioImageView
                 android:id="@+id/riv_movie"
                 android:layout_width="@dimen/douban_item_image_width"
-                android:layout_height="@dimen/douban_item_image_width"
+                android:layout_height="140dp"
                 tools:scaleHeight="1.4"
                 tools:scaleWidth="1"
                 android:scaleType="fitXY"
@@ -32,14 +34,13 @@
             <TextView
                 android:id="@+id/tv_movie_title"
                 android:text="@{item.bean.title}"
-                android:layout_marginTop="@dimen/dimen_16"
-                android:layout_marginStart="@dimen/dimen_16"
+                android:layout_marginTop="@dimen/dimen_8"
+                android:layout_marginLeft="@dimen/dimen_16"
+                android:layout_toRightOf="@+id/riv_movie"
                 android:textSize="@dimen/common_title"
                 android:textColor="@color/grey900"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dimen_16"
-                android:layout_toRightOf="@+id/riv_movie" />
+                android:layout_height="wrap_content"/>
 
             <TextView
                 android:id="@+id/tv_movie_subtitle"
@@ -48,11 +49,13 @@
                 android:layout_marginTop="@dimen/dimen_8"
                 android:layout_marginBottom="@dimen/dimen_8"
                 android:layout_toRightOf="@+id/riv_movie"
+                android:maxLines="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dimen_16" />
 
             <TextView
+                android:id="@+id/tv_movie_year"
                 android:layout_below="@+id/tv_movie_subtitle"
                 android:layout_marginStart="@dimen/dimen_16"
                 android:layout_toEndOf="@+id/riv_movie"
@@ -61,6 +64,25 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dimen_16"
                 android:layout_toRightOf="@+id/riv_movie" />
+
+            <HorizontalScrollView
+                android:scrollbars="none"
+                android:paddingLeft="@dimen/dimen_16"
+                android:paddingRight="@dimen/dimen_16"
+                android:layout_marginTop="@dimen/dimen_8"
+                android:layout_toRightOf="@+id/riv_movie"
+                android:layout_toEndOf="@+id/riv_movie"
+                android:layout_below="@+id/tv_movie_year"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.design.chip.ChipGroup
+                    bind:chipsList="@{item.bean.genres}"
+                    tools:singleLine="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </HorizontalScrollView>
 
             <View
                 android:id="@+id/view_divider"
