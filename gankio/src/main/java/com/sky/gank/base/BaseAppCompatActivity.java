@@ -79,7 +79,6 @@ public abstract class BaseAppCompatActivity<V extends ViewDataBinding, VM extend
                     mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mToolbar.setNavigationIcon(null);
                             onBackPressed();
                         }
                     });

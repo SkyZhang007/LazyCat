@@ -1,12 +1,12 @@
 package com.sky.gank.meizi;
 
+import android.app.Activity;
 import android.app.Application;
 import android.arch.lifecycle.Lifecycle;
 import android.databinding.ObservableArrayList;
-import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 import android.support.annotation.NonNull;
-import android.support.v4.content.res.ResourcesCompat;
+import android.view.View;
 
 import com.sky.gank.BR;
 import com.sky.gank.R;
@@ -19,7 +19,6 @@ import com.sky.gank.command.BindingCommand;
 import com.sky.gank.command.BindingConsumer;
 import com.sky.gank.data.meizi.MeiziData;
 import com.sky.gank.data.meizi.MeiziDataSource;
-import com.sky.gank.data.meizi.RemoteMeiziDataSource;
 import com.sky.gank.util.LogUtils;
 
 import io.reactivex.subjects.PublishSubject;
@@ -43,10 +42,13 @@ public class MeiziViewModel extends BaseViewModel{
     private int mLoadPage = 1;
     private int mLoadSize = 10;
 
-    public MeiziViewModel(@NonNull Application application, PublishSubject<Lifecycle.Event> publishSubject, MeiziDataSource meiziDataSource) {
+    public MeiziViewModel(@NonNull final Application application, PublishSubject<Lifecycle.Event> publishSubject, MeiziDataSource meiziDataSource) {
         super(application, publishSubject);
         this.mMeiziDataSource = meiziDataSource;
-        initToolbar(R.string.title_meizi,R.color.colorPrimary,null);
+        initToolbar(new BaseToolbar.Builder(application.getBaseContext())
+                .setBackgroundDrawableRes(R.color.colorPrimary)
+                .setTitleRes(R.string.title_meizi)
+                .build());
     }
 
     public BindingCommand onRefreshCommand = new BindingCommand(new BindingAction() {

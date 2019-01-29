@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".gank.GankActivity"/>
+        <activity android:name=".douban.DoubanMovieDetailActivity" />
 
     </application>
 

@@ -5,9 +5,7 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.Lifecycle;
 import android.databinding.ObservableField;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.v4.content.res.ResourcesCompat;
 
 import com.sky.gank.net.HttpUtil;
 import com.sky.gank.net.rxutil.DataCallback;

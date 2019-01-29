@@ -45,9 +45,8 @@ public class DoubanMovieViewModel extends BaseViewModel {
                                 DoubanMovieDataSource doubanMovieDataSource) {
         super(application, publishSubject);
         this.mDoubanMovieDataSource = doubanMovieDataSource;
-
         initToolbar(new BaseToolbar.Builder(application.getBaseContext())
-                .setBackgroundRes(R.color.colorPrimary)
+                .setBackgroundDrawableRes(R.color.colorPrimaryDark)
                 .setTitleRes(R.string.title_douban)
                 .build());
     }

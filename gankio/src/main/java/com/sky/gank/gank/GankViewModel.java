@@ -1,5 +1,6 @@
 package com.sky.gank.gank;
 
+import android.app.Activity;
 import android.app.Application;
 import android.arch.lifecycle.Lifecycle;
 import android.databinding.ObservableArrayList;
@@ -8,7 +9,6 @@ import android.databinding.ObservableList;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
 import android.text.TextUtils;
 
 import com.sky.gank.R;
@@ -19,6 +19,7 @@ import com.sky.gank.base.BaseViewModel;
 import com.sky.gank.base.MyRecyclerViewAdapter;
 import com.sky.gank.command.BindingAction;
 import com.sky.gank.command.BindingCommand;
+import com.sky.gank.command.BindingConsumer;
 import com.sky.gank.data.gank.GankBean;
 import com.sky.gank.data.gank.GankData;
 import com.sky.gank.data.gank.GankDataSource;
@@ -62,10 +63,14 @@ public class GankViewModel extends BaseViewModel {
         super(application, publishSubject);
         this.mGankDataSource = gankDataSource;
         drawableImg = ContextCompat.getDrawable(application, R.mipmap.ic_launcher);
-
         initToolbar(new BaseToolbar.Builder(application.getBaseContext())
-                .setBackgroundRes(R.color.colorPrimary)
-                .setTitleRes(R.string.title_meizi)
+                .setNavigationIconRes(R.drawable.ic_arrow_white_24dp)
+                .setNavClickCommand(new BindingCommand<>(new BindingConsumer<Activity>() {
+                    @Override
+                    public void call(Activity activity) {
+                        activity.onBackPressed();
+                    }
+                }))
                 .build());
     }
 
