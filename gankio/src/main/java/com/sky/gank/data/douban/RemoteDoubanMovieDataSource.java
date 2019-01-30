@@ -40,4 +40,12 @@ public class RemoteDoubanMovieDataSource implements DoubanMovieDataSource{
                 .create(RetrofitService.class)
                 .getDouBanMovies(type,start,count);
     }
+
+    @Override
+    public Observable<DoubanMovieDetailData> getDouBanMovieDetail(String id) {
+        return HttpUtil.getInstance()
+                .setBaseUrl(Urls.DOUBAN_API_BASE)
+                .create(RetrofitService.class)
+                .getDouBanMovieDetail(id);
+    }
 }

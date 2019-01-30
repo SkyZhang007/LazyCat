@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentActivity;
 import com.sky.gank.data.douban.DoubanMovieDataSource;
 import com.sky.gank.data.gank.GankDataSource;
 import com.sky.gank.data.meizi.MeiziDataSource;
+import com.sky.gank.douban.DoubanMovieDetailViewModel;
 import com.sky.gank.douban.DoubanMovieViewModel;
 import com.sky.gank.gank.GankViewModel;
 import com.sky.gank.meizi.MeiziViewModel;
@@ -63,6 +64,8 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
             return (T) new DoubanMovieViewModel(mApplication,mLifeEvent,(DoubanMovieDataSource) mBaseDataSource);
         } else if(modelClass.isAssignableFrom(GankViewModel.class)){
             return (T) new GankViewModel(mApplication,mLifeEvent,(GankDataSource) mBaseDataSource);
+        } else if(modelClass.isAssignableFrom(DoubanMovieDetailViewModel.class)){
+            return (T) new DoubanMovieDetailViewModel(mApplication,mLifeEvent,(DoubanMovieDataSource) mBaseDataSource);
         }
         throw new IllegalArgumentException("Unknown ViewModel class");
     }

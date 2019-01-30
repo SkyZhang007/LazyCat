@@ -14,4 +14,6 @@ public interface DoubanMovieDataSource extends BaseDataSource {
 
     Observable<DoubanMovieData> getDouBanMovies(String type,int start,int count);
 
+    Observable<DoubanMovieDetailData> getDouBanMovieDetail(String id);
+
 }

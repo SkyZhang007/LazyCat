@@ -2,6 +2,7 @@ package com.sky.gank.net;
 
 
 import com.sky.gank.data.douban.DoubanMovieData;
+import com.sky.gank.data.douban.DoubanMovieDetailData;
 import com.sky.gank.data.gank.GankData;
 import com.sky.gank.data.meizi.MeiziData;
 
@@ -27,5 +28,8 @@ public interface RetrofitService {
     //https://blog.csdn.net/izengjing/article/details/82963735#%E5%89%8D%E8%A8%80
     @GET("{type}")
     Observable<DoubanMovieData> getDouBanMovies(@Path("type") String type, @Query("start") int start, @Query("count") int count);
+
+    @GET("subject/{id}")
+    Observable<DoubanMovieDetailData> getDouBanMovieDetail(@Path("id") String id);
 
 }

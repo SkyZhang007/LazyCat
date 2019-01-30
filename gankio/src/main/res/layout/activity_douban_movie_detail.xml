@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable name="movieDetailViewModel" type="com.sky.gank.douban.DoubanMovieDetailViewModel" />
@@ -10,7 +11,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <com.sky.gank.widget.RatioImageView
+            bind:imageUrl="@{movieDetailViewModel.mObservableField.images.medium}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
+        <TextView
+            android:text="@{movieDetailViewModel.mObservableField.year}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

@@ -12,7 +12,6 @@ import com.sky.gank.base.ItemViewModel;
 import com.sky.gank.command.BindingCommand;
 import com.sky.gank.command.BindingConsumer;
 import com.sky.gank.data.douban.DoubanMovieData;
-import com.sky.gank.gank.GankActivity;
 import com.sky.gank.util.ViewUtil;
 
 /**
@@ -40,7 +39,7 @@ public class DoubanMovieItemViewModel extends ItemViewModel<DoubanMovieViewModel
             if(null == currentActivity){
                 return;
             }
-            Intent intent = new Intent(currentActivity,GankActivity.class);
+            DoubanMovieDetailActivity.goMovieDetail(currentActivity,bean.getId());
         }
     });
 }
