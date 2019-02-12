@@ -1,12 +1,10 @@
 package com.sky.gank.meizi;
 
-import android.app.Activity;
 import android.app.Application;
 import android.arch.lifecycle.Lifecycle;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 import android.support.annotation.NonNull;
-import android.view.View;
 
 import com.sky.gank.BR;
 import com.sky.gank.R;
@@ -34,10 +32,10 @@ public class MeiziViewModel extends BaseViewModel{
 
     // 数据源list
     public final ObservableList<MeiziItemViewModel> mObservableMeizi = new ObservableArrayList<>();
-    // adapter
-    public final MyRecyclerViewAdapter<MeiziItemViewModel> mAdapter = new MyRecyclerViewAdapter<>();
     // item binding
     public final ItemBinding<MeiziItemViewModel> mMeiziItem = ItemBinding.of(BR.meiziItem, R.layout.item_meizi);
+    // adapter
+    public final MyRecyclerViewAdapter<MeiziItemViewModel> mAdapter = new MyRecyclerViewAdapter<>();
     private final MeiziDataSource mMeiziDataSource;
     private int mLoadPage = 1;
     private int mLoadSize = 10;

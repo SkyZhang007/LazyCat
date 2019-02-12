@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="item" type="com.sky.gank.douban.DoubanMovieActorItemViewModel" />
+    </data>
+
+    <LinearLayout
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.sky.gank.widget.RatioImageView
+            android:layout_marginTop="@dimen/dimen_8"
+            tools:scaleHeight="1.4"
+            tools:scaleWidth="1"
+            android:adjustViewBounds="true"
+            bind:imageUrl="@{item.mMovieStaff.smallImg}"
+            bind:placeholder="@{item.drawableImg}"
+            android:layout_width="@dimen/douban_item_actor_width"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_marginTop="@dimen/dimen_8"
+            android:layout_marginBottom="@dimen/dimen_8"
+            android:textSize="@dimen/text_small"
+            android:maxLines="1"
+            android:text="@{item.mMovieStaff.name}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</layout>

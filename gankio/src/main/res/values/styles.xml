@@ -27,4 +27,11 @@
     <style name="RatingBarStyle" parent="Base.Widget.AppCompat.RatingBar.Small">
     </style>
 
+    <style name="DividerStyle">
+        <item name="android:background">@color/colorDivider</item>
+        <item name="android:alpha">0.8</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+    </style>
+
 </resources>

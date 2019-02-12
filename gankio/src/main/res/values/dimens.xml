@@ -7,11 +7,14 @@
     <dimen name="dimen_16">16dp</dimen>
     <dimen name="dimen_18">18dp</dimen>
     <dimen name="dimen_32">32dp</dimen>
+    <dimen name="dimen_64">64dp</dimen>
     <dimen name="douban_item_image_width">100dp</dimen>
+    <dimen name="douban_item_actor_width">60dp</dimen>
     <dimen name="gank_detail_margin">32dp</dimen>
     <dimen name="meizi_text_button_height">42dp</dimen>
 
     <dimen name="gank_title">17sp</dimen>
+    <dimen name="text_small">12sp</dimen>
     <dimen name="common_title">18sp</dimen>
 
 </resources>

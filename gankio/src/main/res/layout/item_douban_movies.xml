@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
+        <import type="android.support.v7.widget.LinearLayoutManager" />
         <import type="android.text.TextUtils"/>
         <import type="android.view.View"/>
         <variable name="item"
@@ -11,6 +13,7 @@
     </data>
 
     <android.support.design.card.MaterialCardView
+        android:animateLayoutChanges="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         bind:onClickCommand="@{item.mItemClick}"
@@ -24,7 +27,7 @@
             <com.sky.gank.widget.RatioImageView
                 android:id="@+id/riv_movie"
                 android:layout_width="@dimen/douban_item_image_width"
-                android:layout_height="140dp"
+                android:layout_height="wrap_content"
                 tools:scaleHeight="1.4"
                 tools:scaleWidth="1"
                 android:scaleType="fitXY"
@@ -87,13 +90,11 @@
 
             <View
                 android:id="@+id/view_divider"
+                style="@style/DividerStyle"
                 android:layout_marginTop="-1dp"
                 android:layout_marginStart="@dimen/douban_item_image_width"
-                android:layout_below="@+id/riv_movie"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_1"
-                android:background="@color/colorDivider"
-                android:layout_marginLeft="@dimen/douban_item_image_width" />
+                android:layout_marginLeft="@dimen/douban_item_image_width"
+                android:layout_below="@+id/riv_movie"/>
 
             <TextView
                 android:id="@+id/tv_movie_rating_text"
@@ -101,7 +102,6 @@
                 android:layout_marginStart="@dimen/dimen_16"
                 android:layout_marginBottom="@dimen/dimen_16"
                 android:layout_below="@+id/riv_movie"
-                android:layout_toLeftOf="@id/tv_rating"
                 android:text="@string/movie_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -109,7 +109,8 @@
 
             <RatingBar
                 android:id="@+id/rb_movie"
-                android:layout_alignParentEnd="true"
+                android:layout_toRightOf="@id/tv_movie_rating_text"
+                android:layout_toEndOf="@id/tv_movie_rating_text"
                 android:layout_marginTop="@dimen/dimen_18"
                 android:layout_marginBottom="@dimen/dimen_8"
                 android:layout_marginEnd="@dimen/dimen_16"
@@ -121,13 +122,13 @@
                 android:layout_below="@+id/riv_movie"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/dimen_16" />
+                android:layout_marginRight="@dimen/dimen_16"/>
 
             <TextView
                 android:id="@+id/tv_rating"
                 android:paddingLeft="@dimen/dimen_8"
                 android:paddingRight="@dimen/dimen_8"
+                android:visibility="gone"
                 android:text="@{item.bean.rating.stars}"
                 android:layout_marginTop="@dimen/dimen_16"
                 android:layout_below="@+id/riv_movie"
@@ -136,6 +137,45 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+
+            <android.support.design.button.MaterialButton
+                android:id="@+id/btn_expand"
+                android:layout_marginTop="@dimen/dimen_4"
+                android:layout_marginBottom="@dimen/dimen_4"
+                android:layout_marginRight="@dimen/dimen_4"
+                android:layout_alignParentRight="true"
+                bind:onClickCommand="@{item.mExpandClick}"
+                android:layout_below="@+id/riv_movie"
+                style="@style/TextButtonStyle"
+                android:textSize="12sp"
+                android:text="@string/douban_movie_item_click"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp" />
+
+            <TextView
+                android:id="@+id/tv_actor"
+                android:layout_below="@+id/tv_movie_rating_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_16"
+                android:layout_marginLeft="@dimen/dimen_16"
+                android:layout_marginBottom="@dimen/dimen_8"
+                android:text="@string/douban_movie_item_actor"
+                android:visibility="@{item.mExpandState.get()?View.VISIBLE:View.GONE}" />
+
+            <android.support.v7.widget.RecyclerView
+                android:paddingLeft="@dimen/dimen_8"
+                android:paddingRight="@dimen/dimen_8"
+                android:layout_below="@+id/tv_actor"
+                android:visibility="@{item.mExpandState.get()?View.VISIBLE:View.GONE}"
+                android:layout_marginBottom="@dimen/dimen_8"
+                bind:layoutManager="@{LayoutManagers.staggeredGrid(6,LinearLayoutManager.VERTICAL)}"
+                bind:items="@{item.mActorItemList}"
+                bind:itemBinding="@{item.mActorItem}"
+                bind:adapter="@{item.mAdapter}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
         </RelativeLayout>
 

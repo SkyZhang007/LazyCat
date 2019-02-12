@@ -28,9 +28,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 bind:layoutManager="@{LayoutManagers.staggeredGrid(2,LinearLayoutManager.VERTICAL)}"
-                bind:adapter="@{meiziViewModel.mAdapter}"
-                bind:itemBinding="@{meiziViewModel.mMeiziItem}"
                 bind:items="@{meiziViewModel.mObservableMeizi}"
+                bind:itemBinding="@{meiziViewModel.mMeiziItem}"
+                bind:adapter="@{meiziViewModel.mAdapter}"
                 bind:onLoadMoreCommand="@{meiziViewModel.loadMore}"/>
 
         </android.support.v4.widget.SwipeRefreshLayout>
