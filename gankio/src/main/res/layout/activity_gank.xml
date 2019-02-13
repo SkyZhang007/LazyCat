@@ -32,7 +32,7 @@
                     app:scaleHeight="1.2"
                     app:scaleWidth="1"
                     android:scaleType="centerCrop"
-                    android:transitionName="item_photo"
+                    android:transitionName="@string/meizi_transition_detail"
                     app:layout_collapseMode="parallax"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />

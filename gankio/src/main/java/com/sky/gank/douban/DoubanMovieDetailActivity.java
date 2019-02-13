@@ -1,8 +1,11 @@
 package com.sky.gank.douban;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.sky.gank.R;
 import com.sky.gank.BR;
@@ -10,6 +13,7 @@ import com.sky.gank.base.BaseAppCompatActivity;
 import com.sky.gank.base.ViewModelFactory;
 import com.sky.gank.data.douban.RemoteDoubanMovieDataSource;
 import com.sky.gank.databinding.ActivityDoubanMovieDetailBinding;
+import com.sky.gank.util.VersionUtil;
 
 /**
  * 类名称：
@@ -45,10 +49,16 @@ public class DoubanMovieDetailActivity extends BaseAppCompatActivity<ActivityDou
         }
     }
 
-    public static void goMovieDetail(Context context, String movieId){
+    public static void goMovieDetail(Context context, String movieId, View view){
         Intent intent = new Intent(context,DoubanMovieDetailActivity.class);
         intent.putExtra(INTENT_MOVIE_ID,movieId);
-        context.startActivity(intent);
+        if(VersionUtil.hasLollipop()){
+            ActivityOptions options =
+                    ActivityOptions.makeSceneTransitionAnimation((Activity) context, view, context.getResources().getString(R.string.douban_transition_detail));
+            context.startActivity(intent, options.toBundle());
+        } else {
+            context.startActivity(intent);
+        }
     }
 
 }

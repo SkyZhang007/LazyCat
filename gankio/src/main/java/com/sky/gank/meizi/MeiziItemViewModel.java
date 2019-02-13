@@ -66,7 +66,7 @@ public class MeiziItemViewModel extends ItemViewModel<MeiziViewModel> {
         // 避免父容器转换
         ((ViewGroup)view.getParent()).setTransitionGroup(false);
         ActivityOptions options =
-                ActivityOptions.makeSceneTransitionAnimation((Activity) context, view, "item_photo");
+                ActivityOptions.makeSceneTransitionAnimation((Activity) context, view, context.getResources().getString(R.string.meizi_transition_detail));
         context.startActivity(intent, options.toBundle());
     }
 

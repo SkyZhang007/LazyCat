@@ -9,4 +9,6 @@
     <string name="movie_year_format">(%1$s)</string>
     <string name="douban_movie_item_click">展&#160;&#160;开</string>
     <string name="douban_movie_item_actor">演职人员</string>
+    <string name="meizi_transition_detail">meiziDetail</string>
+    <string name="douban_transition_detail">movieDetail</string>
 </resources>

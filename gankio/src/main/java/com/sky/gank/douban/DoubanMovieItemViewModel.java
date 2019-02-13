@@ -77,7 +77,7 @@ public class DoubanMovieItemViewModel extends ItemViewModel<DoubanMovieViewModel
             if(null == currentActivity){
                 return;
             }
-            DoubanMovieDetailActivity.goMovieDetail(currentActivity,bean.getId());
+            DoubanMovieDetailActivity.goMovieDetail(currentActivity,bean.getId(),view);
         }
     });
 

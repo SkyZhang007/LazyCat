@@ -16,6 +16,7 @@
         android:animateLayoutChanges="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:transitionName="@string/douban_transition_detail"
         bind:onClickCommand="@{item.mItemClick}"
         style="@style/CardViewStyle">
 

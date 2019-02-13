@@ -1,26 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
+        <import type="android.support.v7.widget.LinearLayoutManager" />
         <variable name="movieDetailViewModel" type="com.sky.gank.douban.DoubanMovieDetailViewModel" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
+        android:transitionName="@string/douban_transition_detail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <com.sky.gank.widget.RatioImageView
+            android:id="@+id/riv_movie"
+            android:layout_width="@dimen/douban_item_image_width"
+            android:layout_height="wrap_content"
+            tools:scaleHeight="1.4"
+            tools:scaleWidth="1"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
             bind:imageUrl="@{movieDetailViewModel.mObservableField.images.medium}"
+           />
+        <!--android:text="@{item.bean.title}"-->
+        <!--bind:placeholder="@{item.drawableImg}"-->
+        <TextView
+            android:id="@+id/tv_movie_title"
+
+            android:layout_marginTop="@dimen/dimen_8"
+            android:layout_marginLeft="@dimen/dimen_16"
+            android:layout_toRightOf="@+id/riv_movie"
+            android:textSize="@dimen/common_title"
+            android:textColor="@color/grey900"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <!--android:text="@{item.bean.original_title}"-->
+        <TextView
+            android:id="@+id/tv_movie_subtitle"
+
+            android:layout_below="@+id/tv_movie_title"
+            android:layout_marginTop="@dimen/dimen_8"
+            android:layout_marginBottom="@dimen/dimen_8"
+            android:layout_toRightOf="@+id/riv_movie"
+            android:maxLines="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_16" />
+        <!--android:text="@{@string/movie_year_format(item.bean.year)}"-->
+        <TextView
+            android:id="@+id/tv_movie_year"
+            android:layout_below="@+id/tv_movie_subtitle"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:layout_toEndOf="@+id/riv_movie"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_16"
+            android:layout_toRightOf="@+id/riv_movie" />
+
+        <HorizontalScrollView
+            android:scrollbars="none"
+            android:paddingLeft="@dimen/dimen_16"
+            android:paddingRight="@dimen/dimen_16"
+            android:layout_marginTop="@dimen/dimen_8"
+            android:layout_toRightOf="@+id/riv_movie"
+            android:layout_toEndOf="@+id/riv_movie"
+            android:layout_below="@+id/tv_movie_year"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+            <!--bind:chipsList="@{item.bean.genres}"-->
+            <android.support.design.chip.ChipGroup
+
+                tools:singleLine="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </HorizontalScrollView>
+
+        <View
+            android:id="@+id/view_divider"
+            style="@style/DividerStyle"
+            android:layout_marginTop="-1dp"
+            android:layout_marginStart="@dimen/douban_item_image_width"
+            android:layout_marginLeft="@dimen/douban_item_image_width"
+            android:layout_below="@+id/riv_movie"/>
 
         <TextView
-            android:text="@{movieDetailViewModel.mObservableField.year}"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:id="@+id/tv_movie_rating_text"
+            android:layout_marginTop="@dimen/dimen_16"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:layout_marginBottom="@dimen/dimen_16"
+            android:layout_below="@+id/riv_movie"
+            android:text="@string/movie_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_16" />
+        <!--android:rating="@{item.bean.rating.average/2}"-->
+        <RatingBar
+            android:id="@+id/rb_movie"
+            android:layout_toRightOf="@id/tv_movie_rating_text"
+            android:layout_toEndOf="@id/tv_movie_rating_text"
+            android:layout_marginTop="@dimen/dimen_18"
+            android:layout_marginBottom="@dimen/dimen_8"
+            android:layout_marginEnd="@dimen/dimen_16"
+            style="@style/RatingBarStyle"
+            android:numStars="5"
+            android:max="5"
+            android:stepSize="0.1"
 
-    </LinearLayout>
+            android:layout_below="@+id/riv_movie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dimen_16"/>
+        <!--android:text="@{item.bean.rating.stars}"-->
+        <TextView
+            android:id="@+id/tv_rating"
+            android:paddingLeft="@dimen/dimen_8"
+            android:paddingRight="@dimen/dimen_8"
+            android:visibility="gone"
+
+            android:layout_marginTop="@dimen/dimen_16"
+            android:layout_below="@+id/riv_movie"
+            android:layout_marginBottom="@dimen/dimen_16"
+            android:layout_toLeftOf="@+id/rb_movie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <!--android:visibility="@{item.mExpandState.get()?View.VISIBLE:View.GONE}"-->
+        <TextView
+            android:id="@+id/tv_actor"
+            android:layout_below="@+id/tv_movie_rating_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:layout_marginLeft="@dimen/dimen_16"
+            android:layout_marginBottom="@dimen/dimen_8"
+            android:text="@string/douban_movie_item_actor"
+        />
+        <!--android:visibility="@{item.mExpandState.get()?View.VISIBLE:View.GONE}"-->
+        <!--bind:items="@{item.mActorItemList}"-->
+        <!--bind:itemBinding="@{item.mActorItem}"-->
+        <!--bind:adapter="@{item.mAdapter}"-->
+        <android.support.v7.widget.RecyclerView
+            android:paddingLeft="@dimen/dimen_8"
+            android:paddingRight="@dimen/dimen_8"
+            android:layout_below="@+id/tv_actor"
+            android:layout_marginBottom="@dimen/dimen_8"
+            bind:layoutManager="@{LayoutManagers.staggeredGrid(6,LinearLayoutManager.VERTICAL)}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
 
 </layout>
