@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import com.sky.gank.BR;
 import com.sky.gank.R;
 import com.sky.gank.base.BaseResponse;
-import com.sky.gank.base.BaseToolbar;
 import com.sky.gank.base.BaseViewModel;
 import com.sky.gank.base.MyRecyclerViewAdapter;
 import com.sky.gank.command.BindingAction;
@@ -43,10 +42,7 @@ public class MeiziViewModel extends BaseViewModel{
     public MeiziViewModel(@NonNull final Application application, PublishSubject<Lifecycle.Event> publishSubject, MeiziDataSource meiziDataSource) {
         super(application, publishSubject);
         this.mMeiziDataSource = meiziDataSource;
-        initToolbar(new BaseToolbar.Builder(application.getBaseContext())
-                .setBackgroundDrawableRes(R.color.colorPrimary)
-                .setTitleRes(R.string.title_meizi)
-                .build());
+        initToolbar(false);
     }
 
     public BindingCommand onRefreshCommand = new BindingCommand(new BindingAction() {

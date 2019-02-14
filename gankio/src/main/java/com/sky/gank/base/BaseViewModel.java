@@ -6,10 +6,14 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.Lifecycle;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 
+import com.sky.gank.R;
 import com.sky.gank.net.HttpUtil;
 import com.sky.gank.net.rxutil.DataCallback;
 import com.sky.gank.util.LogUtils;
+import com.sky.gank.util.ViewUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -31,7 +35,7 @@ public abstract class BaseViewModel extends AndroidViewModel {
     private final CompositeDisposable mDisposable = new CompositeDisposable();
     public final ObservableField<Boolean> mRefreshing = new ObservableField<>();
     private final PublishSubject<Lifecycle.Event> mLifeEvent;
-    public final ObservableField<BaseToolbar> mToolbar = new ObservableField<>();
+    public final ObservableField<Toolbar> mToolbar = new ObservableField<>();
 
     public BaseViewModel(@NonNull Application application,PublishSubject<Lifecycle.Event> publishSubject) {
         super(application);
@@ -83,8 +87,22 @@ public abstract class BaseViewModel extends AndroidViewModel {
     protected void onDataResponse(BaseResponse response){
     }
 
-    protected void initToolbar(BaseToolbar baseToolbar){
-        mToolbar.set(baseToolbar);
+    protected void initToolbar(boolean showBack){
+        Toolbar toolbar = new Toolbar(getApplication());
+        if(showBack){
+            toolbar.setNavigationIcon(R.drawable.ic_arrow_white_24dp);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ViewUtil.getActivityFromView(v).onBackPressed();
+                }
+            });
+        } else {
+            toolbar.setNavigationIcon(null);
+        }
+        toolbar.setTitle("Test");
+        toolbar.setBackground(null);
+        mToolbar.set(toolbar);
     }
 
 }

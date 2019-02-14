@@ -114,7 +114,6 @@
                 android:layout_toEndOf="@id/tv_movie_rating_text"
                 android:layout_marginTop="@dimen/dimen_18"
                 android:layout_marginBottom="@dimen/dimen_8"
-                android:layout_marginEnd="@dimen/dimen_16"
                 style="@style/RatingBarStyle"
                 android:numStars="5"
                 android:max="5"
@@ -122,22 +121,17 @@
                 android:rating="@{item.bean.rating.average/2}"
                 android:layout_below="@+id/riv_movie"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/dimen_16"/>
+                android:layout_height="wrap_content"/>
 
             <TextView
                 android:id="@+id/tv_rating"
-                android:paddingLeft="@dimen/dimen_8"
-                android:paddingRight="@dimen/dimen_8"
-                android:visibility="gone"
-                android:text="@{item.bean.rating.stars}"
+                android:layout_marginLeft="@dimen/dimen_8"
+                android:text="@{String.valueOf(item.bean.rating.average)}"
                 android:layout_marginTop="@dimen/dimen_16"
                 android:layout_below="@+id/riv_movie"
-                android:layout_marginBottom="@dimen/dimen_16"
-                android:layout_toLeftOf="@+id/rb_movie"
+                android:layout_toRightOf="@+id/rb_movie"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-
 
             <android.support.design.button.MaterialButton
                 android:id="@+id/btn_expand"

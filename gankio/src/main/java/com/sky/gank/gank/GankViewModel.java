@@ -14,7 +14,6 @@ import android.text.TextUtils;
 import com.sky.gank.R;
 import com.sky.gank.BR;
 import com.sky.gank.base.BaseResponse;
-import com.sky.gank.base.BaseToolbar;
 import com.sky.gank.base.BaseViewModel;
 import com.sky.gank.base.MyRecyclerViewAdapter;
 import com.sky.gank.command.BindingAction;
@@ -63,15 +62,7 @@ public class GankViewModel extends BaseViewModel {
         super(application, publishSubject);
         this.mGankDataSource = gankDataSource;
         drawableImg = ContextCompat.getDrawable(application, R.mipmap.ic_launcher);
-        initToolbar(new BaseToolbar.Builder(application.getBaseContext())
-                .setNavigationIconRes(R.drawable.ic_arrow_white_24dp)
-                .setNavClickCommand(new BindingCommand<>(new BindingConsumer<Activity>() {
-                    @Override
-                    public void call(Activity activity) {
-                        activity.onBackPressed();
-                    }
-                }))
-                .build());
+        initToolbar(true);
     }
 
     public BindingCommand onRefreshCommand = new BindingCommand(new BindingAction() {

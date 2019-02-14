@@ -64,7 +64,7 @@ public class DoubanMovieDetailData extends BaseResponse {
     private String summary;
     private String subtype;
     private int comments_count;
-    private int ratings_count;
+    private String ratings_count;
     private List<String> countries;
     private List<String> genres;
     private List<CastsBean> casts;
@@ -239,11 +239,11 @@ public class DoubanMovieDetailData extends BaseResponse {
         this.comments_count = comments_count;
     }
 
-    public int getRatings_count() {
+    public String getRatings_count() {
         return ratings_count;
     }
 
-    public void setRatings_count(int ratings_count) {
+    public void setRatings_count(String ratings_count) {
         this.ratings_count = ratings_count;
     }
 
@@ -296,7 +296,7 @@ public class DoubanMovieDetailData extends BaseResponse {
          */
 
         private int max;
-        private double average;
+        private float average;
         private String stars;
         private int min;
 
@@ -308,11 +308,11 @@ public class DoubanMovieDetailData extends BaseResponse {
             this.max = max;
         }
 
-        public double getAverage() {
+        public float getAverage() {
             return average;
         }
 
-        public void setAverage(double average) {
+        public void setAverage(float average) {
             this.average = average;
         }
 

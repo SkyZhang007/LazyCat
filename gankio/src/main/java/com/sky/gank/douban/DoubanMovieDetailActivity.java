@@ -52,13 +52,14 @@ public class DoubanMovieDetailActivity extends BaseAppCompatActivity<ActivityDou
     public static void goMovieDetail(Context context, String movieId, View view){
         Intent intent = new Intent(context,DoubanMovieDetailActivity.class);
         intent.putExtra(INTENT_MOVIE_ID,movieId);
-        if(VersionUtil.hasLollipop()){
-            ActivityOptions options =
-                    ActivityOptions.makeSceneTransitionAnimation((Activity) context, view, context.getResources().getString(R.string.douban_transition_detail));
-            context.startActivity(intent, options.toBundle());
-        } else {
-            context.startActivity(intent);
-        }
+        context.startActivity(intent);
+//        if(VersionUtil.hasLollipop()){
+//            ActivityOptions options =
+//                    ActivityOptions.makeSceneTransitionAnimation((Activity) context, view, context.getResources().getString(R.string.douban_transition_detail));
+//            context.startActivity(intent, options.toBundle());
+//        } else {
+//            context.startActivity(intent);
+//        }
     }
 
 }
