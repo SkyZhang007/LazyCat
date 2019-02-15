@@ -40,11 +40,17 @@ public class MeiziFragment extends BaseFragment<FragmentMeiziBinding,MeiziViewMo
 
     @Override
     public void initViewObservable() {
+        mToolbarViewModel.setTitle(R.string.title_meizi);
+        mToolbarViewModel.setBackground(R.color.colorPrimary);
+    }
+
+    @Override
+    protected boolean showBack() {
+        return true;
     }
 
     @Override
     public void initData() {
-        mToolbarViewModel.setTitle("妹子");
         mViewModel.loadData();
     }
 

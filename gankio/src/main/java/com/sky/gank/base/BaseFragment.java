@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.sky.gank.R;
 import com.sky.gank.toolbar.ToolbarViewModel;
 import com.sky.gank.BR;
 
@@ -71,7 +72,15 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
         if(0 != initToolbarId()){
             mToolbarViewModel = new ToolbarViewModel(getApplication(),mLifecycleSubject);
             mBinding.setVariable(initToolbarId(),mToolbarViewModel);
+            if(showBack()){
+                mToolbarViewModel.setNavButtonView(R.drawable.ic_arrow_white_24dp);
+                mToolbarViewModel.initNavClick();
+            }
         }
+    }
+
+    protected boolean showBack(){
+        return false;
     }
 
     /**

@@ -6,6 +6,8 @@
         <import type="android.support.v7.widget.LinearLayoutManager" />
         <variable name="meiziViewModel"
             type="com.sky.gank.meizi.MeiziViewModel"/>
+        <variable
+            name="toolbar" type="com.sky.gank.toolbar.ToolbarViewModel"/>
     </data>
 
     <LinearLayout
@@ -13,7 +15,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <include layout="@layout/include_toolbar"/>
+        <include layout="@layout/include_toolbar"
+            bind:toolbar="@{toolbar}"/>
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:padding="@dimen/dimen_4"
