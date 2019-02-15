@@ -44,6 +44,7 @@ public class MeiziFragment extends BaseFragment<FragmentMeiziBinding,MeiziViewMo
 
     @Override
     public void initData() {
+        mToolbarViewModel.setTitle("妹子");
         mViewModel.loadData();
     }
 

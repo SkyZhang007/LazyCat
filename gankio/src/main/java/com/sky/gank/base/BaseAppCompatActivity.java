@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.sky.gank.R;
+import com.sky.gank.toolbar.ToolbarViewModel;
 import com.sky.gank.util.LogUtils;
 
 import io.reactivex.subjects.PublishSubject;
@@ -31,6 +32,7 @@ public abstract class BaseAppCompatActivity<V extends ViewDataBinding, VM extend
     protected V mBinding;
     protected VM mViewModel;
     public final PublishSubject<Lifecycle.Event> mLifecycleSubject = PublishSubject.create();
+    protected ToolbarViewModel mToolbarViewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,59 +40,24 @@ public abstract class BaseAppCompatActivity<V extends ViewDataBinding, VM extend
         mLifecycleSubject.onNext(Lifecycle.Event.ON_CREATE);
         LogUtils.i(BASE_TAG,getClass().getSimpleName());
         initViewDataBinding();
-//        initToolbar();
         if(null != getIntent()){
             getIntentData(getIntent());
         }
         initData();
     }
 
-    private void initToolbar(){
-        mToolbar = findViewById(R.id.toolbar);
-        mToolbarTitle = findViewById(R.id.tv_title);
-        if (null != mToolbar) {
-            setSupportActionBar(mToolbar);
-            setBackIcon();
-            // 显示应用的Logo
-//            getSupportActionBar().setDisplayShowHomeEnabled(true);
-//            getSupportActionBar().setDisplayUseLogoEnabled(true);
-//            getSupportActionBar().setLogo(R.mipmap.ic_launcher);
-//            // 显示标题和子标题
-//            getSupportActionBar().setDisplayShowTitleEnabled(true);
-//            mToolbar.setTitle("ToolbarDemo");
-//            mToolbar.setSubtitle("the detail of toolbar");
-        }
-        if (null != mToolbarTitle) {
-            //getTitle()的值是activity的android:lable属性值
-            mToolbarTitle.setText(getTitle());
-            if(null != getSupportActionBar()){
-                //设置默认的标题不显示
-                getSupportActionBar().setDisplayShowTitleEnabled(false);
-            }
-        }
-    }
-
-    private void setBackIcon(){
-        if (null != mToolbar && isShowBacking()) {
-            mToolbar.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mToolbar.setNavigationIcon(R.drawable.ic_arrow_white_24dp);
-                    mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            onBackPressed();
-                        }
-                    });
-                }
-            },500);
-        }
-    }
-
     protected void initViewDataBinding(){
         mBinding = DataBindingUtil.setContentView(this,getLayoutResId());
         if(null != mBinding){
             mBinding.setVariable(initVariableId(), mViewModel = initViewModel());
+            setToolbar();
+        }
+    }
+
+    protected void setToolbar(){
+        if(0 != initToolbarId()){
+            mToolbarViewModel = new ToolbarViewModel(getApplication(),mLifecycleSubject);
+            mBinding.setVariable(initToolbarId(),mToolbarViewModel);
         }
     }
 
@@ -114,6 +81,13 @@ public abstract class BaseAppCompatActivity<V extends ViewDataBinding, VM extend
      */
     protected abstract int initVariableId();
 
+    /**
+     * 重写此方法以实例化toolbar
+     * @return toolbar VM id
+     */
+    protected int initToolbarId(){
+        return 0;
+    }
     /**
      * 初始化ViewModel
      * @return 继承BaseViewModel的ViewModel

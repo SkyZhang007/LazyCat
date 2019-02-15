@@ -12,6 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.sky.gank.toolbar.ToolbarViewModel;
+import com.sky.gank.BR;
+
 import io.reactivex.subjects.PublishSubject;
 
 /**
@@ -29,12 +32,14 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
     private boolean isPrepared;
     private boolean isFirstLoad = true;
     protected final PublishSubject<Lifecycle.Event> mLifecycleSubject = PublishSubject.create();
+    protected ToolbarViewModel mToolbarViewModel;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, initContentView(), container, getAttachToParent());
         mBinding.setVariable(initVariableId(), mViewModel = initViewModel());
+        setToolbar();
         mBinding.executePendingBindings();
 
         return mBinding.getRoot();
@@ -61,6 +66,21 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
      * @return BR的id
      */
     public abstract int initVariableId();
+
+    protected void setToolbar(){
+        if(0 != initToolbarId()){
+            mToolbarViewModel = new ToolbarViewModel(getApplication(),mLifecycleSubject);
+            mBinding.setVariable(initToolbarId(),mToolbarViewModel);
+        }
+    }
+
+    /**
+     * 重写此方法以实例化toolbar
+     * @return toolbar VM id
+     */
+    protected int initToolbarId(){
+        return BR.toolbar;
+    }
 
     /**
      * 初始化ViewModel

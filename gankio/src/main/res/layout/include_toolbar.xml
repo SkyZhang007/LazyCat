@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="toolbar" type="android.support.v7.widget.Toolbar"/>
+            name="toolbar" type="com.sky.gank.toolbar.ToolbarViewModel"/>
     </data>
 
     <android.support.v7.widget.Toolbar
@@ -11,10 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:titleTextColor="@android:color/white"
-        app:title="@{toolbar.mTitleText}"
-        android:background="@{toolbar.mBackground}"
-        app:navigationIcon="@{toolbar.mNavButtonView.mDrawable}"
+        app:title="@{toolbar.mTitle}"
         app:layout_collapseMode="pin"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+    <!--android:background="@{toolbar.mBackground}"-->
+    <!--app:navigationIcon="@{toolbar.mNavButtonView}"-->
+
 </layout>

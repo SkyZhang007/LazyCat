@@ -13,8 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <include layout="@layout/include_toolbar"
-            bind:toolbar="@{doubanMovieViewModel.mToolbar}"/>
+        <!--<include layout="@layout/include_toolbar"/>-->
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/srl_refresh"
