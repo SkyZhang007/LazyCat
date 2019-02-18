@@ -58,6 +58,8 @@ dependencies {
     // binding recycler adapter
     implementation "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:$rootProject.ext.Bindingcollectionadapter"
     implementation "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:$rootProject.ext.Bindingcollectionadapter"
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

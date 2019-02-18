@@ -1,7 +1,6 @@
 package com.sky.gank.gank;
 
 import android.content.Intent;
-import android.os.Handler;
 
 import com.sky.gank.BR;
 import com.sky.gank.R;
@@ -40,16 +39,14 @@ public class GankActivity extends BaseAppCompatActivity<ActivityGankBinding,Gank
 
     @Override
     protected void getIntentData(Intent intent) {
-        super.getIntentData(intent);
         final GankBean gankBean = (GankBean) intent.getSerializableExtra(INTENT_GANK_BEAN);
         mViewModel.mBean.set(gankBean);
+        mViewModel.loadData(DateUtil.formatDateStringToString(gankBean.getCreateData()));
+    }
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mViewModel.loadData(DateUtil.formatDateStringToString(gankBean.getCreateData()));
-            }
-        },400);
+    @Override
+    protected boolean showBack() {
+        return true;
     }
 
 }

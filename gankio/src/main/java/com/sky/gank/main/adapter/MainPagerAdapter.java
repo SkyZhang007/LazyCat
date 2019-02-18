@@ -6,8 +6,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.sky.gank.R;
-import com.sky.gank.douban.DoubanMovieFragment;
-import com.sky.gank.meizi.MeiziFragment;
+
+import java.util.List;
 
 /**
  * 类名称：
@@ -18,37 +18,31 @@ import com.sky.gank.meizi.MeiziFragment;
 
 public class MainPagerAdapter extends FragmentPagerAdapter {
 
-    private String[] titles;
-    private MeiziFragment mMeiziFragment;
-    private DoubanMovieFragment mDoubanMovieFragment;
+    private List<Fragment> mFragmentList;
+    private String[] mTitle;
 
     public MainPagerAdapter(FragmentManager fm,
                             Context context,
-                            MeiziFragment meiziFragment,
-                            DoubanMovieFragment doubanMovieFragment){
+                            List<Fragment> fragmentList){
         super(fm);
-        this.mMeiziFragment = meiziFragment;
-        this.mDoubanMovieFragment = doubanMovieFragment;
-        titles = new String[]{context.getString(R.string.title_meizi),context.getString(R.string.title_douban)};
+        this.mFragmentList = fragmentList;
+        mTitle = new String[]{context.getString(R.string.title_meizi)
+                ,context.getString(R.string.title_douban)
+                ,context.getString(R.string.title_info)};
     }
 
     @Override
     public int getCount() {
-        return titles.length;
+        return mFragmentList.size();
     }
 
     @Override
     public Fragment getItem(int position) {
-        if(position == 0){
-            return mMeiziFragment;
-        } else if(position == 1){
-            return mDoubanMovieFragment;
-        }
-        return null;
+        return mFragmentList.get(position);
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return titles[position];
+        return mTitle[position];
     }
 }

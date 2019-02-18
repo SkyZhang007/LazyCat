@@ -6,6 +6,8 @@
         <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
         <variable name="doubanMovieViewModel"
             type="com.sky.gank.douban.DoubanMovieViewModel"/>
+        <variable
+            name="toolbar" type="com.sky.gank.toolbar.ToolbarViewModel"/>
     </data>
 
     <LinearLayout
@@ -13,7 +15,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!--<include layout="@layout/include_toolbar"/>-->
+        <include layout="@layout/include_toolbar"
+            bind:toolbar="@{toolbar}"/>
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/srl_refresh"

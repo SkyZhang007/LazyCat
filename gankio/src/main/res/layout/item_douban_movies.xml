@@ -70,24 +70,24 @@
                 android:layout_marginLeft="@dimen/dimen_16"
                 android:layout_toRightOf="@+id/riv_movie" />
 
-            <HorizontalScrollView
-                android:scrollbars="none"
-                android:paddingLeft="@dimen/dimen_16"
-                android:paddingRight="@dimen/dimen_16"
-                android:layout_marginTop="@dimen/dimen_8"
-                android:layout_toRightOf="@+id/riv_movie"
-                android:layout_toEndOf="@+id/riv_movie"
-                android:layout_below="@+id/tv_movie_year"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <!--<HorizontalScrollView-->
+                <!--android:scrollbars="none"-->
+                <!--android:paddingLeft="@dimen/dimen_16"-->
+                <!--android:paddingRight="@dimen/dimen_16"-->
+                <!--android:layout_marginTop="@dimen/dimen_8"-->
+                <!--android:layout_toRightOf="@+id/riv_movie"-->
+                <!--android:layout_toEndOf="@+id/riv_movie"-->
+                <!--android:layout_below="@+id/tv_movie_year"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
 
-                <android.support.design.chip.ChipGroup
-                    bind:chipsList="@{item.bean.genres}"
-                    tools:singleLine="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                <!--<android.support.design.chip.ChipGroup-->
+                    <!--bind:chipsList="@{item.mChipsList}"-->
+                    <!--tools:singleLine="true"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"/>-->
 
-            </HorizontalScrollView>
+            <!--</HorizontalScrollView>-->
 
             <View
                 android:id="@+id/view_divider"

@@ -9,11 +9,8 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v7.content.res.AppCompatResources;
-import android.view.View;
 
-import com.sky.gank.R;
 import com.sky.gank.base.BaseViewModel;
-import com.sky.gank.command.BindingAction;
 import com.sky.gank.command.BindingCommand;
 import com.sky.gank.command.BindingConsumer;
 

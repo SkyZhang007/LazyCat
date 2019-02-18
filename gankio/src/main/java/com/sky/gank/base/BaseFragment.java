@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,7 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, initContentView(), container, getAttachToParent());
         mBinding.setVariable(initVariableId(), mViewModel = initViewModel());
-        setToolbar();
+        initToolbar();
         mBinding.executePendingBindings();
 
         return mBinding.getRoot();
@@ -68,7 +69,7 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
      */
     public abstract int initVariableId();
 
-    protected void setToolbar(){
+    private void initToolbar(){
         if(0 != initToolbarId()){
             mToolbarViewModel = new ToolbarViewModel(getApplication(),mLifecycleSubject);
             mBinding.setVariable(initToolbarId(),mToolbarViewModel);
@@ -76,6 +77,7 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
                 mToolbarViewModel.setNavButtonView(R.drawable.ic_arrow_white_24dp);
                 mToolbarViewModel.initNavClick();
             }
+            setToolbar();
         }
     }
 
@@ -84,12 +86,24 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
     }
 
     /**
-     * 重写此方法以实例化toolbar
+     * 实例化toolbar
      * @return toolbar VM id
      */
     protected int initToolbarId(){
         return BR.toolbar;
     }
+
+    /**
+     * 设置 Toolbar 标题
+     * @param title
+     */
+    protected void setToolBarTitle(String title) {
+        if (!TextUtils.isEmpty(title) && null != mToolbarViewModel) {
+            mToolbarViewModel.setTitle(title);
+        }
+    }
+
+    protected void setToolbar(){}
 
     /**
      * 初始化ViewModel

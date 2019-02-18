@@ -1,19 +1,16 @@
 package com.sky.gank.douban;
 
-import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.sky.gank.R;
 import com.sky.gank.BR;
+import com.sky.gank.R;
 import com.sky.gank.base.BaseAppCompatActivity;
 import com.sky.gank.base.ViewModelFactory;
 import com.sky.gank.data.douban.RemoteDoubanMovieDataSource;
 import com.sky.gank.databinding.ActivityDoubanMovieDetailBinding;
-import com.sky.gank.util.VersionUtil;
 
 /**
  * 类名称：
@@ -62,4 +59,8 @@ public class DoubanMovieDetailActivity extends BaseAppCompatActivity<ActivityDou
 //        }
     }
 
+    @Override
+    protected boolean showBack() {
+        return true;
+    }
 }

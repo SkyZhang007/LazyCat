@@ -4,16 +4,18 @@ import android.arch.lifecycle.Lifecycle;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.TextView;
 
 import com.sky.gank.R;
+import com.sky.gank.BR;
 import com.sky.gank.toolbar.ToolbarViewModel;
 import com.sky.gank.util.LogUtils;
 
@@ -28,7 +30,6 @@ public abstract class BaseAppCompatActivity<V extends ViewDataBinding, VM extend
 
     protected static final String BASE_TAG = BaseAppCompatActivity.class.getSimpleName();
     protected Toolbar mToolbar;
-    private TextView mToolbarTitle;
     protected V mBinding;
     protected VM mViewModel;
     public final PublishSubject<Lifecycle.Event> mLifecycleSubject = PublishSubject.create();
@@ -50,22 +51,49 @@ public abstract class BaseAppCompatActivity<V extends ViewDataBinding, VM extend
         mBinding = DataBindingUtil.setContentView(this,getLayoutResId());
         if(null != mBinding){
             mBinding.setVariable(initVariableId(), mViewModel = initViewModel());
+            initToolbar();
+        }
+    }
+
+    private void initToolbar(){
+        if(0 != initToolbarId()){
+            mToolbarViewModel = new ToolbarViewModel(getApplication(),mLifecycleSubject);
+            mBinding.setVariable(initToolbarId(),mToolbarViewModel);
+            setToolBarTitle(getTitle().toString());
+            if(showBack()){
+                mToolbarViewModel.setNavButtonView(R.drawable.ic_arrow_white_24dp);
+                mToolbarViewModel.initNavClick();
+            }
             setToolbar();
         }
     }
 
-    protected void setToolbar(){
-        if(0 != initToolbarId()){
-            mToolbarViewModel = new ToolbarViewModel(getApplication(),mLifecycleSubject);
-            mBinding.setVariable(initToolbarId(),mToolbarViewModel);
+    protected void setToolbar(){}
+
+    /**
+     * 设置 Toolbar 标题
+     * @param title
+     */
+    protected void setToolBarTitle(String title) {
+        if (!TextUtils.isEmpty(title) && null != mToolbarViewModel) {
+            mToolbarViewModel.setTitle(title);
         }
+    }
+
+    protected void setToolBarBackground(int colorDrawable) {
+        if(null != mToolbarViewModel){
+            mToolbarViewModel.setBackground(colorDrawable);
+        }
+    }
+
+    protected boolean showBack(){
+        return false;
     }
 
     protected void getIntentData(Intent intent) {
     }
 
     protected void initData(){
-
     }
 
     /**
@@ -86,7 +114,7 @@ public abstract class BaseAppCompatActivity<V extends ViewDataBinding, VM extend
      * @return toolbar VM id
      */
     protected int initToolbarId(){
-        return 0;
+        return BR.toolbar;
     }
     /**
      * 初始化ViewModel
@@ -117,16 +145,6 @@ public abstract class BaseAppCompatActivity<V extends ViewDataBinding, VM extend
     protected void setMenu(int menu){
         if(null != mToolbar){
             mToolbar.inflateMenu(menu);
-        }
-    }
-
-    /**
-     * 设置 Toolbar 标题
-     * @param title
-     */
-    protected void setToolBarTitle(CharSequence title) {
-        if (!TextUtils.isEmpty(title) && null != mToolbarTitle) {
-            mToolbarTitle.setText(title);
         }
     }
 

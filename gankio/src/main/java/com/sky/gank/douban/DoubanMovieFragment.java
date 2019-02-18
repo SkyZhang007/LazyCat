@@ -40,12 +40,13 @@ public class DoubanMovieFragment extends BaseFragment<FragmentDoubanMovieBinding
 
     @Override
     public void initViewObservable() {
-        mViewModel.loadData();
+        mToolbarViewModel.setTitle(R.string.title_douban);
+        mToolbarViewModel.setBackground(R.color.colorPrimary);
     }
 
     @Override
     public void initData() {
-
+        mViewModel.loadData();
     }
 
     @Override

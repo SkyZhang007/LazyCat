@@ -35,6 +35,7 @@ public class DoubanMovieItemViewModel extends ItemViewModel<DoubanMovieViewModel
     public final ObservableList<DoubanMovieActorItemViewModel> mActorItemList = new ObservableArrayList<>();
     public final ItemBinding<DoubanMovieActorItemViewModel> mActorItem = ItemBinding.of(BR.item, R.layout.item_douban_actor);
     public final MyRecyclerViewAdapter<DoubanMovieActorItemViewModel> mAdapter = new MyRecyclerViewAdapter<>();
+    public final ObservableList<String> mChipsList = new ObservableArrayList<>();
 
     public DoubanMovieItemViewModel(@NonNull DoubanMovieViewModel viewModel, DoubanMovieData.SubjectsBean subjectsBean) {
         super(viewModel);
@@ -42,7 +43,12 @@ public class DoubanMovieItemViewModel extends ItemViewModel<DoubanMovieViewModel
         //ImageView的占位图片，可以解决RecyclerView中图片错误问题
         drawableImg = ContextCompat.getDrawable(viewModel.getApplication(), R.mipmap.ic_launcher);
         mExpandState.set(false);
+        initGenres();
         initActor(subjectsBean);
+    }
+
+    private void initGenres() {
+        mChipsList.addAll(bean.getGenres());
     }
 
     private void initActor(DoubanMovieData.SubjectsBean subjectsBean) {

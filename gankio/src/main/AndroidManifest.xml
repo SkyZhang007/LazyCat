@@ -19,8 +19,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".gank.GankActivity"/>
-        <activity android:name=".douban.DoubanMovieDetailActivity" />
+        <activity android:name=".gank.GankActivity"
+            android:label="@string/title_meizi"/>
+        <activity android:name=".douban.DoubanMovieDetailActivity"
+            android:label="@string/title_douban"/>
 
     </application>
 

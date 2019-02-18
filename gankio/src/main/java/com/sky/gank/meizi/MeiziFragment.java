@@ -45,11 +45,6 @@ public class MeiziFragment extends BaseFragment<FragmentMeiziBinding,MeiziViewMo
     }
 
     @Override
-    protected boolean showBack() {
-        return true;
-    }
-
-    @Override
     public void initData() {
         mViewModel.loadData();
     }

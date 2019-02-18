@@ -40,6 +40,10 @@ public class BindingAdapters {
     @BindingAdapter(value={"chipsList"},requireAll=false)
     public static void addChip(ChipGroup chipGroup, List<String> chipsList){
         Context context = ViewUtil.getActivityFromView(chipGroup);
+        // 防止在 RecyclerView 中重复添加
+        if(chipGroup.getChildCount() != 0){
+            chipGroup.removeAllViews();
+        }
         if(null != chipsList && !chipsList.isEmpty() && null != context){
             int size = chipsList.size();
             for (int i = 0; i < size; i++){

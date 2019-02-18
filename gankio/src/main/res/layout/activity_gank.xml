@@ -6,6 +6,7 @@
     <data>
         <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
         <variable name="gankViewModel" type="com.sky.gank.gank.GankViewModel" />
+        <variable name="toolbar" type="com.sky.gank.toolbar.ToolbarViewModel"/>
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -37,7 +38,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <!--<include layout="@layout/include_toolbar" />-->
+                <include layout="@layout/include_toolbar"
+                    bind:toolbar="@{toolbar}"/>
 
             </android.support.design.widget.CollapsingToolbarLayout>
 

@@ -1,8 +1,5 @@
 <resources>
     <string name="app_name">SkyGank</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
 
     <!--妹子-->
     <string name="title_meizi">妹子</string>
@@ -17,5 +14,6 @@
     <string name="douban_transition_detail">movieDetail</string>
     <string name="douban_text_summary">简介：</string>
 
+    <string name="title_info">关于</string>
 
 </resources>
