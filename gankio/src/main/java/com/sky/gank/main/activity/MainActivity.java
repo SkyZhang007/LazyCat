@@ -29,6 +29,7 @@ public class MainActivity extends BaseAppCompatActivity {
     private DoubanMovieFragment mDoubanMovieFragment;
     private InfoFragment mInfoFragment;
     private BottomNavigationView mBottomNavigationView;
+    private List<Fragment> mFragmentList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +55,19 @@ public class MainActivity extends BaseAppCompatActivity {
         return null;
     }
 
+    @Override
+    protected void setToolbar() {
+        setToolBarTitle(getString(R.string.title_meizi));
+        setToolBarBackground(R.color.colorPrimary);
+    }
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             // getOrder = android:orderInCategory="x"
-            viewPager.setCurrentItem(item.getOrder());
+            viewPager.setCurrentItem(item.getOrder(),false);
             return true;
         }
     };
@@ -79,14 +86,15 @@ public class MainActivity extends BaseAppCompatActivity {
     }
 
     private void initViewPager() {
-        List<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(mMeiziFragment);
-        fragmentList.add(mDoubanMovieFragment);
-        fragmentList.add(mInfoFragment);
+        mFragmentList = new ArrayList<>();
+        mFragmentList.add(mMeiziFragment);
+        mFragmentList.add(mDoubanMovieFragment);
+        mFragmentList.add(mInfoFragment);
 
         viewPager = findViewById(R.id.vp_home);
+        viewPager.setOffscreenPageLimit(mFragmentList.size());
         MainPagerAdapter mainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager()
-                ,MainActivity.this,fragmentList);
+                ,MainActivity.this,mFragmentList);
         viewPager.setAdapter(mainPagerAdapter);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -97,6 +105,20 @@ public class MainActivity extends BaseAppCompatActivity {
             @Override
             public void onPageSelected(int i) {
                 mBottomNavigationView.getMenu().getItem(i).setChecked(true);
+                switch (i){
+                    case 0:
+                        setToolBarTitle(getString(R.string.title_meizi));
+                        setToolbarNav(0);
+                        break;
+                    case 1:
+                        setToolBarTitle(getString(R.string.title_douban));
+                        setToolbarNav(0);
+                        break;
+                    case 2:
+                        setToolBarTitle(getString(R.string.title_info));
+                        setToolbarNav(R.drawable.ic_settings_white_24dp);
+                        break;
+                }
             }
 
             @Override

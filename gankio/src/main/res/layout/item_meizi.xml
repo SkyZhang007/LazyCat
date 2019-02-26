@@ -9,7 +9,7 @@
             type="com.sky.gank.meizi.MeiziItemViewModel"/>
     </data>
 
-    <android.support.design.card.MaterialCardView
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/CardViewStyle">
@@ -27,8 +27,8 @@
                 app:scaleWidth="1"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:transitionName="@string/meizi_transition_detail"
                 bind:onClickCommand="@{meiziItem.mItemClick}"
+                android:transitionName="@string/meizi_transition_detail"
                 bind:imageUrl="@{meiziItem.bean.url}"
                 bind:placeholder="@{meiziItem.drawableImg}"/>
 
@@ -41,6 +41,6 @@
 
         </LinearLayout>
 
-    </android.support.design.card.MaterialCardView>
+    </android.support.v7.widget.CardView>
 
 </layout>

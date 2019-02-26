@@ -30,20 +30,36 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
 
     protected V mBinding;
     protected VM mViewModel;
-    private boolean isVisible;
-    private boolean isPrepared;
-    private boolean isFirstLoad = true;
     protected final PublishSubject<Lifecycle.Event> mLifecycleSubject = PublishSubject.create();
     protected ToolbarViewModel mToolbarViewModel;
+
+    /**
+     * 是否执行了lazyLoad方法
+     */
+    private boolean isLoaded;
+    /**
+     * 是否创建了View
+     */
+    private boolean isCreateView;
+
+    /**
+     * 当从另一个activity回到fragment所在的activity
+     * 当fragment回调onResume方法的时候，可以通过这个变量判断fragment是否可见，来决定是否要刷新数据
+     */
+    public boolean isVisible;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, initContentView(), container, getAttachToParent());
-        mBinding.setVariable(initVariableId(), mViewModel = initViewModel());
-        initToolbar();
-        mBinding.executePendingBindings();
+        if(null == mBinding){
+            mBinding = DataBindingUtil.inflate(inflater, initContentView(), container, getAttachToParent());
+            mBinding.setVariable(initVariableId(), mViewModel = initViewModel());
+            initToolbar();
+            mBinding.executePendingBindings();
 
+            isCreateView = true;
+            onVisible();
+        }
         return mBinding.getRoot();
     }
 
@@ -116,7 +132,6 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mLifecycleSubject.onNext(Lifecycle.Event.ON_CREATE);
-        isPrepared = true;
         initViewObservable();
         lazyLoad();
         commonLoad();
@@ -137,11 +152,6 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
     public abstract void initViewObservable();
 
     private void lazyLoad() {
-        if (!isPrepared || !isFirstLoad) {
-            //if (!isAdded() || !isVisible || !isFirstLoad) {
-            return;
-        }
-        isFirstLoad = false;
         initData();
     }
 
@@ -156,19 +166,32 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (getUserVisibleHint()) {
-            isVisible = true;
             onVisible();
         } else {
-            isVisible = false;
             onInvisible();
         }
     }
 
     private void onVisible() {
-        lazyLoad();
+        isVisible = true;
+
+        if(isLoaded){
+            refreshLoad();
+        }
+        if (!isLoaded && isCreateView && getUserVisibleHint()) {
+            isLoaded = true;
+            lazyLoad();
+        }
     }
 
+    /**
+     * 在Fragment第一次可见加载以后，每次Fragment滑动可见的时候会回调这个方法，
+     * 子类可以重写这个方法做数据刷新操作
+     */
+    protected void refreshLoad(){}
+
     private void onInvisible() {
+        isVisible = false;
     }
 
     //刷新布局

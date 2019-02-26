@@ -63,7 +63,11 @@ public class ToolbarViewModel extends BaseViewModel {
     }
 
     public void setNavButtonView(@DrawableRes int drawable){
-        mNavButtonView.set(AppCompatResources.getDrawable(getApplication(),drawable));
+        if(0 == drawable){
+            mNavButtonView.set(null);
+        } else {
+            mNavButtonView.set(AppCompatResources.getDrawable(getApplication(),drawable));
+        }
     }
 
 

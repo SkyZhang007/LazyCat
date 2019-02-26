@@ -42,7 +42,6 @@ public class MeiziViewModel extends BaseViewModel{
     public MeiziViewModel(@NonNull final Application application, PublishSubject<Lifecycle.Event> publishSubject, MeiziDataSource meiziDataSource) {
         super(application, publishSubject);
         this.mMeiziDataSource = meiziDataSource;
-        initToolbar(false);
     }
 
     public BindingCommand onRefreshCommand = new BindingCommand(new BindingAction() {

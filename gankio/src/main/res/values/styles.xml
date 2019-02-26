@@ -4,7 +4,9 @@
     <style name="AppTheme" parent="@style/Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/red400</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+
     </style>
 
     <style name="FloatingActionButtonOverlay" parent="Widget.Design.FloatingActionButton">
@@ -12,10 +14,13 @@
         <item name="rippleColor">@color/blue100</item>
     </style>
 
-    <style name="CardViewStyle" parent="Base.CardView">
+    <style name="CardViewStyle" parent="Widget.MaterialComponents.CardView">
         <item name="android:layout_margin">4dp</item>
         <item name="cardCornerRadius">4dp</item>
         <item name="cardElevation">4dp</item>
+        <item name="android:foreground">?android:attr/selectableItemBackgroundBorderless</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
     </style>
 
     <style name="TextButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">

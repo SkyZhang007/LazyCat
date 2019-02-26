@@ -1,45 +1,19 @@
 package com.sky.gank.info;
 
-import com.sky.gank.R;
-import com.sky.gank.BR;
-import com.sky.gank.base.BaseFragment;
-import com.sky.gank.base.ViewModelFactory;
-import com.sky.gank.databinding.FragmentInfoBinding;
+import android.os.Bundle;
+import android.support.v7.preference.PreferenceFragmentCompat;
 
-public class InfoFragment extends BaseFragment<FragmentInfoBinding,InfoViewModel>{
+import com.sky.gank.R;
+
+public class InfoFragment extends PreferenceFragmentCompat {
 
     public static InfoFragment newInstance() {
         return new InfoFragment();
     }
 
     @Override
-    public int initContentView() {
-        return R.layout.fragment_info;
+    public void onCreatePreferences(Bundle bundle, String s) {
+        addPreferencesFromResource(R.xml.pref_info);
     }
 
-    @Override
-    public int initVariableId() {
-        return BR.infoViewModel;
-    }
-
-    @Override
-    public InfoViewModel initViewModel() {
-        return ViewModelFactory.getInstance(getApplication(),mLifecycleSubject,null)
-                .createViewModel(getActivity(),InfoViewModel.class);
-    }
-
-    @Override
-    public void initViewObservable() {
-
-    }
-
-    @Override
-    public void initData() {
-
-    }
-
-    @Override
-    protected void commonLoad() {
-
-    }
 }

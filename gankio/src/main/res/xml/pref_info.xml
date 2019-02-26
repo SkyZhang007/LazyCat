@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fragment="com.sky.gank.info.InfoFragment">
+
+    <PreferenceCategory
+        android:title="基本设置">
+
+        <Preference
+            android:key="into"
+            android:title="清除缓存"
+            android:summary="清除图片缓存"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="关于">
+
+        <Preference
+            android:summary="博客：https://www.jianshu.com/u/d46b4a47db84"
+            android:title="Sky" />
+
+        <Preference
+            android:key="into"
+            android:title="当前版本"
+            android:summary="V1.0"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

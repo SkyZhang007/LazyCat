@@ -174,4 +174,5 @@ mObservableProducts = new MediatorLiveData<>();
 - 内容纱布(Content scrim)：滚动到特定位置，给 View 添加遮罩。通过 `setContentScrim(Drawable)` 来设置遮罩图片，默认遮罩是 colorPrimary。
 - 状态栏纱布(Status bar scrim)：同上，`setStatusBarScrim(Drawable)`。LOLLIPOP以上有效
 - 视差滚动子View(Parallax scrolling children): 让拥有此属性的子 View 滚动得相对慢一些。app:layout_collapseMode 设置为 parallax
+app:layout_collapseParallaxMultiplier="0.7" 设置视差的系数，介于0.0-1.0之间。
 - 将子View位置固定(Pinned position children):子 View 在全局固定位置。对 Toolbar 来说很有用：app:layout_collapseMode pin

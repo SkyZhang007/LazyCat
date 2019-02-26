@@ -4,18 +4,15 @@ import android.arch.lifecycle.Lifecycle;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 
-import com.sky.gank.R;
 import com.sky.gank.BR;
+import com.sky.gank.R;
 import com.sky.gank.toolbar.ToolbarViewModel;
 import com.sky.gank.util.LogUtils;
 
@@ -83,6 +80,12 @@ public abstract class BaseAppCompatActivity<V extends ViewDataBinding, VM extend
     protected void setToolBarBackground(int colorDrawable) {
         if(null != mToolbarViewModel){
             mToolbarViewModel.setBackground(colorDrawable);
+        }
+    }
+
+    protected void setToolbarNav(int navDrawable){
+        if(null != mToolbarViewModel){
+            mToolbarViewModel.setNavButtonView(navDrawable);
         }
     }
 
@@ -155,12 +158,6 @@ public abstract class BaseAppCompatActivity<V extends ViewDataBinding, VM extend
         return mToolbar;
     }
 
-    /**
-     * 覆写此方法设置是否展示后退按钮
-     */
-    protected boolean isShowBacking() {
-        return false;
-    }
 
     @Override
     protected void onPause() {

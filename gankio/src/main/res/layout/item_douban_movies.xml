@@ -12,11 +12,10 @@
             type="com.sky.gank.douban.DoubanMovieItemViewModel" />
     </data>
 
-    <android.support.design.card.MaterialCardView
+    <android.support.v7.widget.CardView
         android:animateLayoutChanges="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:transitionName="@string/douban_transition_detail"
         bind:onClickCommand="@{item.mItemClick}"
         style="@style/CardViewStyle">
 
@@ -174,6 +173,6 @@
 
         </RelativeLayout>
 
-    </android.support.design.card.MaterialCardView>
+    </android.support.v7.widget.CardView>
 
 </layout>

@@ -18,6 +18,6 @@ public class MyRecyclerViewAdapter <T> extends BindingRecyclerViewAdapter<T> {
     @Override
     public void onBindBinding(ViewDataBinding binding, int variableId, @LayoutRes int layoutRes, int position, T item) {
         super.onBindBinding(binding, variableId, layoutRes, position, item);
-        LogUtils.d(LogUtils.TAG, "bound binding: " + binding + " at position: " + position);
+//        LogUtils.d(LogUtils.TAG, "bound binding: " + binding + " at position: " + position);
     }
 }
