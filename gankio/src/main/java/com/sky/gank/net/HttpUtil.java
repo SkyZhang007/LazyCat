@@ -69,7 +69,7 @@ public class HttpUtil {
         builder.client(httpClient);
         //ConverterFactory 对请求和返回的字符串进行解析，可自定义ConverterFactory
         builder.addConverterFactory(GsonConverterFactory.create());
-        //CallAdapterFactory 把字符串转换为对象，可自定义CallAdapterFactory
+        //CallAdapterFactory 用来将Call对象转换为RxJava的Flowable等对象
         builder.addCallAdapterFactory(RxJava2CallAdapterFactory.create());
         builder.baseUrl(Urls.GANK_API_BASE);
         return builder.build();

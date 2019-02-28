@@ -45,16 +45,6 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <!--<android.support.design.widget.FloatingActionButton-->
-            <!--android:id="@+id/fab_fav"-->
-            <!--android:layout_margin="@dimen/dimen_16"-->
-            <!--style="@style/FloatingActionButtonOverlay"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--app:srcCompat="@drawable/ic_star_border_white_24dp"-->
-            <!--app:layout_anchor="@+id/appbar"-->
-            <!--app:layout_anchorGravity="bottom|end"/>-->
-
         <android.support.v4.widget.SwipeRefreshLayout
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             bind:onRefreshCommand="@{gankViewModel.onRefreshCommand}"

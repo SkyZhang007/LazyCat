@@ -15,7 +15,6 @@ import com.sky.gank.data.meizi.MeiziDataSource;
 import com.sky.gank.douban.DoubanMovieDetailViewModel;
 import com.sky.gank.douban.DoubanMovieViewModel;
 import com.sky.gank.gank.GankViewModel;
-import com.sky.gank.info.InfoViewModel;
 import com.sky.gank.meizi.MeiziViewModel;
 
 import io.reactivex.subjects.PublishSubject;
@@ -67,8 +66,6 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
             return (T) new GankViewModel(mApplication,mLifeEvent,(GankDataSource) mBaseDataSource);
         } else if(modelClass.isAssignableFrom(DoubanMovieDetailViewModel.class)){
             return (T) new DoubanMovieDetailViewModel(mApplication,mLifeEvent,(DoubanMovieDataSource) mBaseDataSource);
-        } if(modelClass.isAssignableFrom(InfoViewModel.class)){
-            return (T) new InfoViewModel(mApplication,mLifeEvent);
         }
         throw new IllegalArgumentException("Unknown ViewModel class");
     }

@@ -48,9 +48,4 @@ public class DoubanMovieFragment extends BaseFragment<FragmentDoubanMovieBinding
     public void initData() {
         mViewModel.loadData();
     }
-
-    @Override
-    protected void commonLoad() {
-
-    }
 }

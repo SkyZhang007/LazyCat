@@ -9,14 +9,14 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 
-import com.sky.gank.R;
 import com.sky.gank.BR;
+import com.sky.gank.R;
 import com.sky.gank.base.ItemViewModel;
 import com.sky.gank.base.MyRecyclerViewAdapter;
 import com.sky.gank.command.BindingCommand;
 import com.sky.gank.command.BindingConsumer;
-import com.sky.gank.data.douban.DoubanMovieData;
 import com.sky.gank.data.douban.DoubanMovieStaff;
+import com.sky.gank.data.douban.SubjectsBean;
 import com.sky.gank.util.ViewUtil;
 
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
@@ -29,7 +29,7 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
  **/
 public class DoubanMovieItemViewModel extends ItemViewModel<DoubanMovieViewModel> {
 
-    public DoubanMovieData.SubjectsBean bean;
+    public SubjectsBean bean;
     public Drawable drawableImg;
     public ObservableBoolean mExpandState = new ObservableBoolean();
     public final ObservableList<DoubanMovieActorItemViewModel> mActorItemList = new ObservableArrayList<>();
@@ -37,7 +37,7 @@ public class DoubanMovieItemViewModel extends ItemViewModel<DoubanMovieViewModel
     public final MyRecyclerViewAdapter<DoubanMovieActorItemViewModel> mAdapter = new MyRecyclerViewAdapter<>();
     public final ObservableList<String> mChipsList = new ObservableArrayList<>();
 
-    public DoubanMovieItemViewModel(@NonNull DoubanMovieViewModel viewModel, DoubanMovieData.SubjectsBean subjectsBean) {
+    public DoubanMovieItemViewModel(@NonNull DoubanMovieViewModel viewModel, SubjectsBean subjectsBean) {
         super(viewModel);
         this.bean = subjectsBean;
         //ImageView的占位图片，可以解决RecyclerView中图片错误问题
@@ -51,14 +51,14 @@ public class DoubanMovieItemViewModel extends ItemViewModel<DoubanMovieViewModel
         mChipsList.addAll(bean.getGenres());
     }
 
-    private void initActor(DoubanMovieData.SubjectsBean subjectsBean) {
-        for (DoubanMovieData.SubjectsBean.DirectorsBean directorsBean:subjectsBean.getDirectors()){
+    private void initActor(SubjectsBean subjectsBean) {
+        for (SubjectsBean.DirectorsBean directorsBean:subjectsBean.getDirectors()){
             DoubanMovieActorItemViewModel doubanMovieActorItemViewModel = new DoubanMovieActorItemViewModel(viewModel.getApplication(),
                     initMovieStaff(directorsBean.getName(),directorsBean.getAvatars().getSmall(),
                             directorsBean.getAvatars().getMedium(),directorsBean.getAvatars().getLarge(),"0"));
             mActorItemList.add(doubanMovieActorItemViewModel);
         }
-        for (DoubanMovieData.SubjectsBean.CastsBean castsBean:subjectsBean.getCasts()){
+        for (SubjectsBean.CastsBean castsBean:subjectsBean.getCasts()){
             DoubanMovieActorItemViewModel doubanMovieActorItemViewModel = new DoubanMovieActorItemViewModel(viewModel.getApplication(),
                     initMovieStaff(castsBean.getName(),castsBean.getAvatars().getSmall(),
                             castsBean.getAvatars().getMedium(),castsBean.getAvatars().getLarge(),"1"));

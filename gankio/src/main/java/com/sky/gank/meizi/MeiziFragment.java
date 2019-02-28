@@ -49,7 +49,4 @@ public class MeiziFragment extends BaseFragment<FragmentMeiziBinding,MeiziViewMo
         mViewModel.loadData();
     }
 
-    @Override
-    protected void commonLoad() {
-    }
 }

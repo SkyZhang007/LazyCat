@@ -133,8 +133,6 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
         super.onViewCreated(view, savedInstanceState);
         mLifecycleSubject.onNext(Lifecycle.Event.ON_CREATE);
         initViewObservable();
-        lazyLoad();
-        commonLoad();
     }
 
     @Override
@@ -159,8 +157,6 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
      * fragment可见时才加载数据data
      */
     public abstract void initData();
-
-    protected abstract void commonLoad();
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {

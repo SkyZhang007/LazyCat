@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 
 import com.sky.gank.BR;
 import com.sky.gank.R;
+import com.sky.gank.base.BaseApplication;
 import com.sky.gank.base.BaseResponse;
 import com.sky.gank.base.BaseViewModel;
 import com.sky.gank.base.MyRecyclerViewAdapter;
@@ -17,6 +18,9 @@ import com.sky.gank.command.BindingConsumer;
 import com.sky.gank.data.douban.DoubanMovieData;
 import com.sky.gank.data.douban.DoubanMovieDataSource;
 import com.sky.gank.data.douban.RemoteDoubanMovieDataSource;
+import com.sky.gank.data.douban.SubjectsBean;
+import com.sky.gank.greendao.DaoSession;
+import com.sky.gank.greendao.SubjectsBeanDao;
 import com.sky.gank.util.LogUtils;
 
 import io.reactivex.subjects.PublishSubject;
@@ -77,15 +81,25 @@ public class DoubanMovieViewModel extends BaseViewModel {
         updateList((DoubanMovieData) response);
     }
 
-    private void updateList(DoubanMovieData data) {
+    private void updateList(final DoubanMovieData data) {
+        DaoSession daoSession = ((BaseApplication) getApplication()).getDaoSession();
+        final SubjectsBeanDao dao = daoSession.getSubjectsBeanDao();
         if (mLoadPage == 1 && !mObservableList.isEmpty()) {
             mObservableList.clear();
         }
         if (null != data && !data.getSubjects().isEmpty()) {
-            for (DoubanMovieData.SubjectsBean subjectsBean : data.getSubjects()) {
+            for (SubjectsBean subjectsBean : data.getSubjects()) {
                 DoubanMovieItemViewModel viewModel = new DoubanMovieItemViewModel(DoubanMovieViewModel.this, subjectsBean);
                 mObservableList.add(viewModel);
             }
+            dao.getSession().runInTx(new Runnable() {
+                @Override
+                public void run() {
+                    for (SubjectsBean subjectsBean : data.getSubjects()) {
+                        dao.insertOrReplace(subjectsBean);
+                    }
+                }
+            });
         }
     }
 

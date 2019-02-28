@@ -57,7 +57,7 @@ public abstract class BaseViewModel extends AndroidViewModel {
                     @Override
                     public void onResponse(BaseResponse response) {
                         onDataResponse(response);
-                        LogUtils.i(TAG_BASE_MODEL,response.toString());
+                        LogUtils.i(TAG_BASE_MODEL,Thread.currentThread().getName()+"_"+Thread.currentThread().getThreadGroup());
                     }
                     @Override
                     public void addDispose(Disposable disposable) {
