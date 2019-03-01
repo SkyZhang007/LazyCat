@@ -53,29 +53,33 @@ public abstract class BaseViewModel extends AndroidViewModel {
                     @Override
                     public void onErrors(Throwable e) {
                         LogUtils.e(LogUtils.TAG,e.getMessage());
+                        hideFresh();
                     }
                     @Override
                     public void onResponse(BaseResponse response) {
                         onDataResponse(response);
-                        LogUtils.i(TAG_BASE_MODEL,Thread.currentThread().getName()+"_"+Thread.currentThread().getThreadGroup());
                     }
                     @Override
                     public void addDispose(Disposable disposable) {
                         mDisposable.add(disposable);
                     }
-                    @SuppressLint("CheckResult")
+
                     @Override
                     public void onComplete() {
-                        Observable
-                                .timer(1, TimeUnit.SECONDS)
-                                .subscribe(new Consumer<Long>() {
-                                    @Override
-                                    public void accept(Long aLong) {
-                                        mRefreshing.set(false);
-                                    }
-                                });
+                        hideFresh();
                     }
+                });
+    }
 
+    @SuppressLint("CheckResult")
+    private void hideFresh(){
+        Observable
+                .timer(1, TimeUnit.SECONDS)
+                .subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) {
+                        mRefreshing.set(false);
+                    }
                 });
     }
 

@@ -14,6 +14,7 @@ import com.sky.gank.base.MyRecyclerViewAdapter;
 import com.sky.gank.command.BindingAction;
 import com.sky.gank.command.BindingCommand;
 import com.sky.gank.command.BindingConsumer;
+import com.sky.gank.data.douban.LocalDoubanMovieDataSource;
 import com.sky.gank.data.meizi.MeiziData;
 import com.sky.gank.data.meizi.MeiziDataSource;
 import com.sky.gank.util.LogUtils;

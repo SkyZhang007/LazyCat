@@ -1,6 +1,7 @@
 package com.sky.gank.base;
 
 import android.arch.lifecycle.Lifecycle;
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
@@ -31,10 +32,12 @@ public abstract class BaseAppCompatActivity<V extends ViewDataBinding, VM extend
     protected VM mViewModel;
     public final PublishSubject<Lifecycle.Event> mLifecycleSubject = PublishSubject.create();
     protected ToolbarViewModel mToolbarViewModel;
+    protected Context mContext;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext = this;
         mLifecycleSubject.onNext(Lifecycle.Event.ON_CREATE);
         LogUtils.i(BASE_TAG,getClass().getSimpleName());
         initViewDataBinding();

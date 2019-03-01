@@ -285,7 +285,7 @@ public class SubjectsBean {
             if(null == databaseValue){
                 return null;
             }
-            List<String> jsonObject = Arrays.asList(databaseValue.split(","));
+            List<String> jsonObject = Arrays.asList(databaseValue.split("~"));
             Gson gson = new Gson();
             List<CastsBean> castsBeanList = new ArrayList<>();
             for (String value:jsonObject){
@@ -303,7 +303,7 @@ public class SubjectsBean {
             Gson gson = new Gson();
             for (CastsBean castsBean:entityProperty){
                 stringBuilder.append(gson.toJson(castsBean));
-                stringBuilder.append(",");
+                stringBuilder.append("~");
             }
             return stringBuilder.toString();
         }
@@ -392,7 +392,7 @@ public class SubjectsBean {
             if(null == databaseValue){
                 return null;
             }
-            List<String> jsonObject = Arrays.asList(databaseValue.split(","));
+            List<String> jsonObject = Arrays.asList(databaseValue.split("~"));
             Gson gson = new Gson();
             List<DirectorsBean> castsBeanList = new ArrayList<>();
             for (String value:jsonObject){
@@ -410,7 +410,7 @@ public class SubjectsBean {
             Gson gson = new Gson();
             for (DirectorsBean directorsBean:entityProperty){
                 stringBuilder.append(gson.toJson(directorsBean));
-                stringBuilder.append(",");
+                stringBuilder.append("~");
             }
             return stringBuilder.toString();
         }

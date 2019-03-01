@@ -1,16 +1,16 @@
 package com.sky.gank.data.douban;
 
+import com.sky.gank.base.BaseApplication;
+import com.sky.gank.greendao.SubjectsBeanDao;
 import com.sky.gank.net.HttpUtil;
 import com.sky.gank.net.RetrofitService;
 import com.sky.gank.net.Urls;
 
+import java.util.List;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Observer;
-import io.reactivex.Scheduler;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -23,7 +23,6 @@ public class LocalDoubanMovieDataSource implements DoubanMovieDataSource{
 
     public static final String MOVETYPE_IN_THEATERS = "in_theaters";
     public static final String MOVETYPE_TOP250 = "top250";
-
     private static LocalDoubanMovieDataSource sInstance;
 
     private LocalDoubanMovieDataSource() {
@@ -45,9 +44,13 @@ public class LocalDoubanMovieDataSource implements DoubanMovieDataSource{
         return Observable.create(new ObservableOnSubscribe<DoubanMovieData>() {
             @Override
             public void subscribe(ObservableEmitter<DoubanMovieData> emitter) throws Exception {
-                DoubanMovieData data = new DoubanMovieData();
-                data.setTitle("ahahahahhaha");
-                emitter.onNext(data);
+                SubjectsBeanDao subjectsBeanDao = BaseApplication.getDaoSession().getSubjectsBeanDao();
+                List<SubjectsBean> subjectsBeanList = subjectsBeanDao.loadAll();
+                if(null != subjectsBeanList && !subjectsBeanList.isEmpty()){
+                    DoubanMovieData data = new DoubanMovieData();
+                    data.setSubjects(subjectsBeanList);
+                    emitter.onNext(data);
+                }
             }
         }).subscribeOn(Schedulers.io());
     }

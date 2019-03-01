@@ -17,6 +17,7 @@ import com.sky.gank.command.BindingCommand;
 import com.sky.gank.command.BindingConsumer;
 import com.sky.gank.data.douban.DoubanMovieData;
 import com.sky.gank.data.douban.DoubanMovieDataSource;
+import com.sky.gank.data.douban.LocalDoubanMovieDataSource;
 import com.sky.gank.data.douban.RemoteDoubanMovieDataSource;
 import com.sky.gank.data.douban.SubjectsBean;
 import com.sky.gank.greendao.DaoSession;
@@ -71,6 +72,7 @@ public class DoubanMovieViewModel extends BaseViewModel {
 
     public void loadData() {
         LogUtils.i(TAG_BASE_MODEL, "加载数据页数");
+        mDoubanMovieDataSource = LocalDoubanMovieDataSource.getInstance();
         super.initData(mDoubanMovieDataSource
                 .getDouBanMovies(RemoteDoubanMovieDataSource.MOVETYPE_IN_THEATERS, mLoadPage, mLoadSize));
     }
@@ -82,7 +84,7 @@ public class DoubanMovieViewModel extends BaseViewModel {
     }
 
     private void updateList(final DoubanMovieData data) {
-        DaoSession daoSession = ((BaseApplication) getApplication()).getDaoSession();
+        DaoSession daoSession = BaseApplication.getDaoSession();
         final SubjectsBeanDao dao = daoSession.getSubjectsBeanDao();
         if (mLoadPage == 1 && !mObservableList.isEmpty()) {
             mObservableList.clear();
@@ -92,14 +94,7 @@ public class DoubanMovieViewModel extends BaseViewModel {
                 DoubanMovieItemViewModel viewModel = new DoubanMovieItemViewModel(DoubanMovieViewModel.this, subjectsBean);
                 mObservableList.add(viewModel);
             }
-            dao.getSession().runInTx(new Runnable() {
-                @Override
-                public void run() {
-                    for (SubjectsBean subjectsBean : data.getSubjects()) {
-                        dao.insertOrReplace(subjectsBean);
-                    }
-                }
-            });
+            dao.insertOrReplaceInTx(data.getSubjects());
         }
     }
 

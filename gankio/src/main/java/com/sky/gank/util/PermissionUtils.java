@@ -17,7 +17,7 @@ import java.util.List;
  *     author : FaDai
  *     e-mail : i_fadai@163.com
  *     time   : 2017/06/13
- *     desc   : xxxx描述
+ *     desc   : https://github.com/ifadai/PermissionUtils
  *     version: 1.0
  * </pre>
  */
@@ -219,7 +219,6 @@ public class PermissionUtils {
         }
 
     }
-
 
     /**
      * 跳转到权限设置界面

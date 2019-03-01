@@ -1,5 +1,6 @@
 package com.sky.gank.main.activity;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -7,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.sky.gank.R;
 import com.sky.gank.base.BaseAppCompatActivity;
@@ -15,8 +17,10 @@ import com.sky.gank.douban.DoubanMovieFragment;
 import com.sky.gank.info.InfoFragment;
 import com.sky.gank.main.adapter.MainPagerAdapter;
 import com.sky.gank.meizi.MeiziFragment;
+import com.sky.gank.util.PermissionUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -30,6 +34,9 @@ public class MainActivity extends BaseAppCompatActivity {
     private InfoFragment mInfoFragment;
     private BottomNavigationView mBottomNavigationView;
     private List<Fragment> mFragmentList;
+    private final String[] PERMISSIONS = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE
+            , Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    private static final int REQUEST_CODE_PERMISSIONS = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +45,7 @@ public class MainActivity extends BaseAppCompatActivity {
         initViewPager();
         mBottomNavigationView = findViewById(R.id.bnv_home);
         mBottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        requestPermission();
     }
 
     @Override
@@ -127,4 +135,48 @@ public class MainActivity extends BaseAppCompatActivity {
         });
     }
 
+    private void requestPermission() {
+        PermissionUtils.checkMorePermissions(this, PERMISSIONS, new PermissionUtils.PermissionCheckCallBack() {
+            @Override
+            public void onHasPermission() {
+            }
+
+            @Override
+            public void onUserHasAlreadyTurnedDown(String... permission) {
+                PermissionUtils.requestMorePermissions(MainActivity.this,PERMISSIONS,REQUEST_CODE_PERMISSIONS);
+            }
+
+            @Override
+            public void onUserHasAlreadyTurnedDownAndDontAsk(String... permission) {
+                PermissionUtils.requestMorePermissions(MainActivity.this,PERMISSIONS,REQUEST_CODE_PERMISSIONS);
+            }
+        });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case REQUEST_CODE_PERMISSIONS:
+                PermissionUtils.onRequestMorePermissionsResult(mContext, PERMISSIONS, new PermissionUtils.PermissionCheckCallBack() {
+                    @Override
+                    public void onHasPermission() {
+                    }
+
+                    @Override
+                    public void onUserHasAlreadyTurnedDown(String... permission) {
+                        Toast.makeText(mContext, "我们需要"+Arrays.toString(permission)+"权限", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onUserHasAlreadyTurnedDownAndDontAsk(String... permission) {
+                        Toast.makeText(mContext, "我们需要"+ Arrays.toString(permission)+"权限", Toast.LENGTH_SHORT).show();
+                        PermissionUtils.toAppSetting(mContext);
+                    }
+                });
+
+
+        }
+    }
 }
