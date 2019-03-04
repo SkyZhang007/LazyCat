@@ -17,6 +17,7 @@ import com.sky.gank.base.ItemViewModel;
 import com.sky.gank.command.BindingCommand;
 import com.sky.gank.command.BindingConsumer;
 import com.sky.gank.data.gank.GankBean;
+import com.sky.gank.data.meizi.MeizhiBean;
 import com.sky.gank.data.meizi.MeiziData;
 import com.sky.gank.gank.GankActivity;
 import com.sky.gank.util.VersionUtil;
@@ -30,10 +31,10 @@ import com.sky.gank.util.ViewUtil;
  **/
 public class MeiziItemViewModel extends ItemViewModel<MeiziViewModel> {
 
-    public MeiziData.MeizhiBean bean;
+    public MeizhiBean bean;
     public Drawable drawableImg;
 
-    public MeiziItemViewModel(@NonNull MeiziViewModel viewModel,MeiziData.MeizhiBean meizhiBean) {
+    public MeiziItemViewModel(@NonNull MeiziViewModel viewModel,MeizhiBean meizhiBean) {
         super(viewModel);
         this.bean = meizhiBean;
         //ImageView的占位图片，可以解决RecyclerView中图片错误问题

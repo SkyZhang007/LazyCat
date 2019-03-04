@@ -45,10 +45,9 @@ public class BindingAdapters {
             chipGroup.removeAllViews();
         }
         if(null != chipsList && !chipsList.isEmpty() && null != context){
-            int size = chipsList.size();
-            for (int i = 0; i < size; i++){
+            for(String text:chipsList){
                 Chip chip = new Chip(context);
-                chip.setText(chipsList.get(i));
+                chip.setText(text);
                 chip.setChipCornerRadius(16f);
                 chipGroup.addView(chip);
             }

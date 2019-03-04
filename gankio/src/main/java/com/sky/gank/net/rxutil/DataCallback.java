@@ -42,7 +42,7 @@ public abstract class DataCallback<T> implements Observer<T> {
     public void onAfter(){
     }
 
-    public abstract void onErrors( Throwable e);
+    public abstract void onErrors(Throwable e);
 
     public abstract void onResponse(T response);
 

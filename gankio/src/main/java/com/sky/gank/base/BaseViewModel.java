@@ -36,6 +36,8 @@ public abstract class BaseViewModel extends AndroidViewModel {
     public final ObservableField<Boolean> mRefreshing = new ObservableField<>();
     private final PublishSubject<Lifecycle.Event> mLifeEvent;
     public final ObservableField<Toolbar> mToolbar = new ObservableField<>();
+    // 是否更新数据库
+    protected boolean mSaveData = false;
 
     public BaseViewModel(@NonNull Application application,PublishSubject<Lifecycle.Event> publishSubject) {
         super(application);
@@ -43,7 +45,8 @@ public abstract class BaseViewModel extends AndroidViewModel {
         mRefreshing.set(false);
     }
 
-    protected void initData(Observable ob){
+    protected void initData(Observable ob,boolean save){
+        mSaveData = save;
         if(mRefreshing.get()){
             return;
         }
@@ -53,7 +56,8 @@ public abstract class BaseViewModel extends AndroidViewModel {
                     @Override
                     public void onErrors(Throwable e) {
                         LogUtils.e(LogUtils.TAG,e.getMessage());
-                        hideFresh();
+                        mRefreshing.set(false);
+                        initDataLocal();
                     }
                     @Override
                     public void onResponse(BaseResponse response) {
@@ -81,6 +85,9 @@ public abstract class BaseViewModel extends AndroidViewModel {
                         mRefreshing.set(false);
                     }
                 });
+    }
+
+    protected void initDataLocal(){
     }
 
     public void onDestroy(){

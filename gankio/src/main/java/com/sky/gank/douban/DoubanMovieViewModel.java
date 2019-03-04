@@ -20,6 +20,7 @@ import com.sky.gank.data.douban.DoubanMovieDataSource;
 import com.sky.gank.data.douban.LocalDoubanMovieDataSource;
 import com.sky.gank.data.douban.RemoteDoubanMovieDataSource;
 import com.sky.gank.data.douban.SubjectsBean;
+import com.sky.gank.data.meizi.RemoteMeiziDataSource;
 import com.sky.gank.greendao.DaoSession;
 import com.sky.gank.greendao.SubjectsBeanDao;
 import com.sky.gank.util.LogUtils;
@@ -43,12 +44,9 @@ public class DoubanMovieViewModel extends BaseViewModel {
     public final ItemBinding<DoubanMovieItemViewModel> mItem = ItemBinding.of(BR.item, R.layout.item_douban_movies);
     private int mLoadPage = 1;
     private int mLoadSize = 20;
-    private DoubanMovieDataSource mDoubanMovieDataSource;
 
-    public DoubanMovieViewModel(@NonNull Application application, PublishSubject<Lifecycle.Event> publishSubject,
-                                DoubanMovieDataSource doubanMovieDataSource) {
+    public DoubanMovieViewModel(@NonNull Application application, PublishSubject<Lifecycle.Event> publishSubject) {
         super(application, publishSubject);
-        this.mDoubanMovieDataSource = doubanMovieDataSource;
     }
 
     public BindingCommand onRefreshCommand = new BindingCommand(new BindingAction() {
@@ -71,10 +69,15 @@ public class DoubanMovieViewModel extends BaseViewModel {
     });
 
     public void loadData() {
-        LogUtils.i(TAG_BASE_MODEL, "加载数据页数");
-        mDoubanMovieDataSource = LocalDoubanMovieDataSource.getInstance();
-        super.initData(mDoubanMovieDataSource
-                .getDouBanMovies(RemoteDoubanMovieDataSource.MOVETYPE_IN_THEATERS, mLoadPage, mLoadSize));
+        LogUtils.i(TAG_BASE_MODEL, "加载数据页数"+mLoadPage);
+        super.initData(RemoteDoubanMovieDataSource.getInstance()
+                .getDouBanMovies(RemoteDoubanMovieDataSource.MOVETYPE_IN_THEATERS, mLoadPage, mLoadSize),true);
+    }
+
+    @Override
+    protected void initDataLocal() {
+        super.initData(LocalDoubanMovieDataSource.getInstance()
+                .getDouBanMovies(RemoteDoubanMovieDataSource.MOVETYPE_IN_THEATERS, mLoadPage, mLoadSize),false);
     }
 
     @Override
@@ -84,8 +87,6 @@ public class DoubanMovieViewModel extends BaseViewModel {
     }
 
     private void updateList(final DoubanMovieData data) {
-        DaoSession daoSession = BaseApplication.getDaoSession();
-        final SubjectsBeanDao dao = daoSession.getSubjectsBeanDao();
         if (mLoadPage == 1 && !mObservableList.isEmpty()) {
             mObservableList.clear();
         }
@@ -94,7 +95,9 @@ public class DoubanMovieViewModel extends BaseViewModel {
                 DoubanMovieItemViewModel viewModel = new DoubanMovieItemViewModel(DoubanMovieViewModel.this, subjectsBean);
                 mObservableList.add(viewModel);
             }
-            dao.insertOrReplaceInTx(data.getSubjects());
+            if(mSaveData) {
+                LocalDoubanMovieDataSource.getInstance().insertOrUpdateData(data.getSubjects());
+            }
         }
     }
 

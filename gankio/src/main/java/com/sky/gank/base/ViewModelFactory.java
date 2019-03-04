@@ -59,13 +59,13 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     @Override
     public <T extends ViewModel> T create(Class<T> modelClass) {
         if (modelClass.isAssignableFrom(MeiziViewModel.class)) {
-            return (T) new MeiziViewModel(mApplication,mLifeEvent,(MeiziDataSource) mBaseDataSource);
+            return (T) new MeiziViewModel(mApplication,mLifeEvent);
         } else if(modelClass.isAssignableFrom(DoubanMovieViewModel.class)){
-            return (T) new DoubanMovieViewModel(mApplication,mLifeEvent,(DoubanMovieDataSource) mBaseDataSource);
+            return (T) new DoubanMovieViewModel(mApplication,mLifeEvent);
         } else if(modelClass.isAssignableFrom(GankViewModel.class)){
-            return (T) new GankViewModel(mApplication,mLifeEvent,(GankDataSource) mBaseDataSource);
+            return (T) new GankViewModel(mApplication,mLifeEvent);
         } else if(modelClass.isAssignableFrom(DoubanMovieDetailViewModel.class)){
-            return (T) new DoubanMovieDetailViewModel(mApplication,mLifeEvent,(DoubanMovieDataSource) mBaseDataSource);
+            return (T) new DoubanMovieDetailViewModel(mApplication,mLifeEvent);
         }
         throw new IllegalArgumentException("Unknown ViewModel class");
     }

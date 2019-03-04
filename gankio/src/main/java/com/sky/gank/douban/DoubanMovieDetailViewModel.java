@@ -17,6 +17,7 @@ import com.sky.gank.base.MyRecyclerViewAdapter;
 import com.sky.gank.data.douban.DoubanMovieDataSource;
 import com.sky.gank.data.douban.DoubanMovieDetailData;
 import com.sky.gank.data.douban.DoubanMovieStaff;
+import com.sky.gank.data.douban.RemoteDoubanMovieDataSource;
 import com.sky.gank.util.ViewUtil;
 
 import io.reactivex.subjects.PublishSubject;
@@ -31,20 +32,17 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
 public class DoubanMovieDetailViewModel extends BaseViewModel {
 
     public final ObservableField<DoubanMovieDetailData> mObservableField = new ObservableField<>();
-    private DoubanMovieDataSource mDoubanMovieDataSource;
     public final ObservableList<DoubanMovieActorItemViewModel> mActorItemList = new ObservableArrayList<>();
     public final ItemBinding<DoubanMovieActorItemViewModel> mActorItem = ItemBinding.of(BR.item, R.layout.item_douban_actor);
     public final MyRecyclerViewAdapter<DoubanMovieActorItemViewModel> mAdapter = new MyRecyclerViewAdapter<>();
 
-    public DoubanMovieDetailViewModel(@NonNull Application application, PublishSubject<Lifecycle.Event> publishSubject,
-                                      DoubanMovieDataSource doubanMovieDataSource) {
+    public DoubanMovieDetailViewModel(@NonNull Application application, PublishSubject<Lifecycle.Event> publishSubject) {
         super(application, publishSubject);
-        this.mDoubanMovieDataSource = doubanMovieDataSource;
         initToolbar(true);
     }
 
     public void loadData(String id){
-        super.initData(mDoubanMovieDataSource.getDouBanMovieDetail(id));
+        super.initData(RemoteDoubanMovieDataSource.getInstance().getDouBanMovieDetail(id),true);
     }
 
     @Override

@@ -22,6 +22,7 @@ import com.sky.gank.command.BindingConsumer;
 import com.sky.gank.data.gank.GankBean;
 import com.sky.gank.data.gank.GankData;
 import com.sky.gank.data.gank.GankDataSource;
+import com.sky.gank.data.gank.RemoteGankDataSource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,6 @@ public class GankViewModel extends BaseViewModel {
     public Drawable drawableImg;
     public final MyRecyclerViewAdapter<GankItemViewModel> mAdapter = new MyRecyclerViewAdapter<>();
     public final ObservableList<GankItemViewModel> mObservableList = new ObservableArrayList<>();
-    private GankDataSource mGankDataSource;
     private String mCurrentData;
 
     public final ItemBinding<GankItemViewModel> mItemBinding = ItemBinding.of(new OnItemBind<GankItemViewModel>() {
@@ -57,10 +57,8 @@ public class GankViewModel extends BaseViewModel {
         }
     });
 
-    public GankViewModel(@NonNull Application application, PublishSubject<Lifecycle.Event> publishSubject,
-                         GankDataSource gankDataSource) {
+    public GankViewModel(@NonNull Application application, PublishSubject<Lifecycle.Event> publishSubject) {
         super(application, publishSubject);
-        this.mGankDataSource = gankDataSource;
         drawableImg = ContextCompat.getDrawable(application, R.mipmap.ic_launcher);
         initToolbar(true);
     }
@@ -74,7 +72,7 @@ public class GankViewModel extends BaseViewModel {
 
     public void loadData(String data){
         mCurrentData = data;
-        super.initData(mGankDataSource.getGankData(data));
+        super.initData(RemoteGankDataSource.getInstance().getGankData(data),true);
     }
 
     @Override

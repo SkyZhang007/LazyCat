@@ -2,9 +2,8 @@ package com.sky.gank.data.douban;
 
 import com.sky.gank.base.BaseApplication;
 import com.sky.gank.greendao.SubjectsBeanDao;
-import com.sky.gank.net.HttpUtil;
-import com.sky.gank.net.RetrofitService;
-import com.sky.gank.net.Urls;
+
+import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.List;
 
@@ -40,26 +39,42 @@ public class LocalDoubanMovieDataSource implements DoubanMovieDataSource{
     }
 
     @Override
-    public Observable<DoubanMovieData> getDouBanMovies(String type,int start,int count) {
+    public Observable<DoubanMovieData> getDouBanMovies(String type, final int start, final int count) {
         return Observable.create(new ObservableOnSubscribe<DoubanMovieData>() {
             @Override
             public void subscribe(ObservableEmitter<DoubanMovieData> emitter) throws Exception {
-                SubjectsBeanDao subjectsBeanDao = BaseApplication.getDaoSession().getSubjectsBeanDao();
-                List<SubjectsBean> subjectsBeanList = subjectsBeanDao.loadAll();
+                List<SubjectsBean> subjectsBeanList = loadDataFromDB(start,count);
                 if(null != subjectsBeanList && !subjectsBeanList.isEmpty()){
                     DoubanMovieData data = new DoubanMovieData();
                     data.setSubjects(subjectsBeanList);
                     emitter.onNext(data);
                 }
+                emitter.onComplete();
             }
         }).subscribeOn(Schedulers.io());
     }
 
     @Override
     public Observable<DoubanMovieDetailData> getDouBanMovieDetail(String id) {
-        return HttpUtil.getInstance()
-                .setBaseUrl(Urls.DOUBAN_API_BASE)
-                .create(RetrofitService.class)
-                .getDouBanMovieDetail(id);
+        return null;
     }
+
+    public void insertOrUpdateData(List<SubjectsBean> subjectsBeans) {
+        if(null != subjectsBeans && !subjectsBeans.isEmpty()){
+            SubjectsBeanDao meizhiBeanDao = BaseApplication.getDaoSession().getSubjectsBeanDao();
+            meizhiBeanDao.insertOrReplaceInTx(subjectsBeans);
+        }
+    }
+
+    private static List<SubjectsBean> loadDataFromDB(int start,int count){
+        int offset = (start-1)*count;
+        if(offset < 0){
+            offset = 0;
+        }
+        QueryBuilder<SubjectsBean> builder = BaseApplication.getDaoSession().getSubjectsBeanDao().queryBuilder();
+        builder.limit(count);
+        builder.offset(offset);
+        return builder.list();
+    }
+
 }

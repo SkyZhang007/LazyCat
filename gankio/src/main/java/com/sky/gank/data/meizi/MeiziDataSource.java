@@ -14,8 +14,4 @@ public interface MeiziDataSource extends BaseDataSource {
 
     Observable<MeiziData> getMeizi(int page, int size);
 
-    void insertOrUpdateMeizi(MeiziData data);
-
-    void deleteAllMeizhis();
-
 }

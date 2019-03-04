@@ -14,9 +14,10 @@ import com.sky.gank.base.MyRecyclerViewAdapter;
 import com.sky.gank.command.BindingAction;
 import com.sky.gank.command.BindingCommand;
 import com.sky.gank.command.BindingConsumer;
-import com.sky.gank.data.douban.LocalDoubanMovieDataSource;
+import com.sky.gank.data.meizi.LocalMeiziDataSource;
+import com.sky.gank.data.meizi.MeizhiBean;
 import com.sky.gank.data.meizi.MeiziData;
-import com.sky.gank.data.meizi.MeiziDataSource;
+import com.sky.gank.data.meizi.RemoteMeiziDataSource;
 import com.sky.gank.util.LogUtils;
 
 import io.reactivex.subjects.PublishSubject;
@@ -36,13 +37,11 @@ public class MeiziViewModel extends BaseViewModel{
     public final ItemBinding<MeiziItemViewModel> mMeiziItem = ItemBinding.of(BR.meiziItem, R.layout.item_meizi);
     // adapter
     public final MyRecyclerViewAdapter<MeiziItemViewModel> mAdapter = new MyRecyclerViewAdapter<>();
-    private final MeiziDataSource mMeiziDataSource;
     private int mLoadPage = 1;
     private int mLoadSize = 10;
 
-    public MeiziViewModel(@NonNull final Application application, PublishSubject<Lifecycle.Event> publishSubject, MeiziDataSource meiziDataSource) {
+    public MeiziViewModel(@NonNull final Application application, PublishSubject<Lifecycle.Event> publishSubject) {
         super(application, publishSubject);
-        this.mMeiziDataSource = meiziDataSource;
     }
 
     public BindingCommand onRefreshCommand = new BindingCommand(new BindingAction() {
@@ -66,7 +65,14 @@ public class MeiziViewModel extends BaseViewModel{
 
     public void loadData(){
         LogUtils.i(TAG_BASE_MODEL,"加载数据页数"+mLoadPage);
-        super.initData(mMeiziDataSource.getMeizi(mLoadPage,mLoadSize));
+        super.initData(RemoteMeiziDataSource.getInstance().getMeizi(mLoadPage,mLoadSize),true);
+    }
+
+    @Override
+    protected void initDataLocal() {
+        super.initDataLocal();
+        LogUtils.i(TAG_BASE_MODEL,"本地加载数据页数："+mLoadPage);
+        super.initData(LocalMeiziDataSource.getInstance().getMeizi(mLoadPage,mLoadSize),false);
     }
 
     @Override
@@ -80,9 +86,12 @@ public class MeiziViewModel extends BaseViewModel{
             mObservableMeizi.clear();
         }
         if(null != data && !data.getResults().isEmpty()){
-            for (MeiziData.MeizhiBean meizhiBean:data.getResults()){
+            for (MeizhiBean meizhiBean:data.getResults()){
                 MeiziItemViewModel meiziItemViewModel = new MeiziItemViewModel(MeiziViewModel.this,meizhiBean);
                 mObservableMeizi.add(meiziItemViewModel);
+            }
+            if(mSaveData){
+                LocalMeiziDataSource.getInstance().insertMeizi(data.getResults());
             }
         }
     }

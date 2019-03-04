@@ -38,11 +38,4 @@ public class RemoteMeiziDataSource implements MeiziDataSource{
                 .getMeizhiData(page,size);
     }
 
-    @Override
-    public void insertOrUpdateMeizi(MeiziData user) {
-    }
-
-    @Override
-    public void deleteAllMeizhis() {
-    }
 }
