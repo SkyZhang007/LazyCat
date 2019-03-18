@@ -33,7 +33,6 @@ public class MainActivity extends BaseAppCompatActivity {
     private DoubanMovieFragment mDoubanMovieFragment;
     private InfoFragment mInfoFragment;
     private BottomNavigationView mBottomNavigationView;
-    private List<Fragment> mFragmentList;
     private final String[] PERMISSIONS = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE
             , Manifest.permission.WRITE_EXTERNAL_STORAGE};
     private static final int REQUEST_CODE_PERMISSIONS = 0;
@@ -94,7 +93,7 @@ public class MainActivity extends BaseAppCompatActivity {
     }
 
     private void initViewPager() {
-        mFragmentList = new ArrayList<>();
+        List<Fragment> mFragmentList = new ArrayList<>();
         mFragmentList.add(mMeiziFragment);
         mFragmentList.add(mDoubanMovieFragment);
         mFragmentList.add(mInfoFragment);
@@ -102,7 +101,7 @@ public class MainActivity extends BaseAppCompatActivity {
         viewPager = findViewById(R.id.vp_home);
         viewPager.setOffscreenPageLimit(mFragmentList.size());
         MainPagerAdapter mainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager()
-                ,MainActivity.this,mFragmentList);
+                ,MainActivity.this, mFragmentList);
         viewPager.setAdapter(mainPagerAdapter);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

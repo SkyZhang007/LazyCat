@@ -14,6 +14,8 @@ import com.sky.gank.base.MyRecyclerViewAdapter;
 import com.sky.gank.command.BindingAction;
 import com.sky.gank.command.BindingCommand;
 import com.sky.gank.command.BindingConsumer;
+import com.sky.gank.data.douban.DoubanMovieData;
+import com.sky.gank.data.douban.LocalDoubanMovieDataSource;
 import com.sky.gank.data.meizi.LocalMeiziDataSource;
 import com.sky.gank.data.meizi.MeizhiBean;
 import com.sky.gank.data.meizi.MeiziData;
@@ -38,7 +40,7 @@ public class MeiziViewModel extends BaseViewModel{
     // adapter
     public final MyRecyclerViewAdapter<MeiziItemViewModel> mAdapter = new MyRecyclerViewAdapter<>();
     private int mLoadPage = 1;
-    private int mLoadSize = 10;
+    private int mLoadSize = 20;
 
     public MeiziViewModel(@NonNull final Application application, PublishSubject<Lifecycle.Event> publishSubject) {
         super(application, publishSubject);
@@ -70,7 +72,6 @@ public class MeiziViewModel extends BaseViewModel{
 
     @Override
     protected void initDataLocal() {
-        super.initDataLocal();
         LogUtils.i(TAG_BASE_MODEL,"本地加载数据页数："+mLoadPage);
         super.initData(LocalMeiziDataSource.getInstance().getMeizi(mLoadPage,mLoadSize),false);
     }
@@ -90,10 +91,13 @@ public class MeiziViewModel extends BaseViewModel{
                 MeiziItemViewModel meiziItemViewModel = new MeiziItemViewModel(MeiziViewModel.this,meizhiBean);
                 mObservableMeizi.add(meiziItemViewModel);
             }
-            if(mSaveData){
-                LocalMeiziDataSource.getInstance().insertMeizi(data.getResults());
-            }
         }
+    }
+
+    @Override
+    protected void saveDateLocalAsync(BaseResponse baseResponse) {
+        MeiziData data = (MeiziData) baseResponse;
+        LocalMeiziDataSource.getInstance().insertMeizi(data.getResults());
     }
 
 }

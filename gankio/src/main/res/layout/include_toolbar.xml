@@ -5,19 +5,58 @@
     <data>
         <variable
             name="toolbar" type="com.sky.gank.toolbar.ToolbarViewModel"/>
+        <import type="android.view.View"/>
     </data>
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:background="@{toolbar.mBackground}"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:titleTextColor="@android:color/white"
-        app:title="@{toolbar.mTitle}"
-        android:background="@{toolbar.mBackground}"
-        app:navigationIcon="@{toolbar.mNavButtonView}"
-        bind:onNavClickCommand="@{toolbar.mNavClickCommand}"
+        android:elevation="@dimen/dimen_4"
+        android:padding="@dimen/dimen_4"
         app:layout_collapseMode="pin"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/btn_left"
+                style="@style/CommonButton"
+                android:src="@{toolbar.mNavButtonView}"
+                android:layout_marginRight="@dimen/dimen_8"
+                android:paddingRight="@dimen/dimen_8"
+                android:paddingLeft="@dimen/dimen_8"
+                android:visibility="@{toolbar.mNavButtonView.get()==null?View.GONE:View.VISIBLE}"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                bind:onClickCommand="@{toolbar.mNavClickCommand}"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:text="@{toolbar.mTitle}"
+                android:layout_marginLeft="@dimen/dimen_8"
+                android:layout_toRightOf="@+id/btn_left"
+                android:gravity="center"
+                style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+                android:textColor="@android:color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+            <ImageButton
+                style="@style/CommonButton"
+                android:src="@{toolbar.mRightIcon.get()}"
+                android:paddingRight="@dimen/dimen_8"
+                android:paddingLeft="@dimen/dimen_8"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
 
 </layout>

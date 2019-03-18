@@ -46,6 +46,11 @@ public class DoubanMovieDetailActivity extends BaseAppCompatActivity<ActivityDou
         }
     }
 
+    @Override
+    protected void setToolbar() {
+        mToolbarViewModel.setRightIconView(R.drawable.ic_share_white_24dp);
+    }
+
     public static void goMovieDetail(Context context, String movieId, View view){
         Intent intent = new Intent(context,DoubanMovieDetailActivity.class);
         intent.putExtra(INTENT_MOVIE_ID,movieId);

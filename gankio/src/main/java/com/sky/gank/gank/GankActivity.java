@@ -45,6 +45,11 @@ public class GankActivity extends BaseAppCompatActivity<ActivityGankBinding,Gank
     }
 
     @Override
+    protected void setToolbar() {
+        mToolbarViewModel.setRightIconView(R.drawable.ic_share_white_24dp);
+    }
+
+    @Override
     protected boolean showBack() {
         return true;
     }

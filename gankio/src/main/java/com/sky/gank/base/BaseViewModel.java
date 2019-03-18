@@ -1,6 +1,5 @@
 package com.sky.gank.base;
 
-import android.annotation.SuppressLint;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.Lifecycle;
@@ -18,9 +17,13 @@ import com.sky.gank.util.ViewUtil;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 
 /**
@@ -60,8 +63,25 @@ public abstract class BaseViewModel extends AndroidViewModel {
                         initDataLocal();
                     }
                     @Override
-                    public void onResponse(BaseResponse response) {
+                    public void onResponse(final BaseResponse response) {
                         onDataResponse(response);
+                        if(mSaveData){
+                            mDisposable.add(Observable.create(new ObservableOnSubscribe<String>() {
+                                @Override
+                                public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                                    saveDateLocalAsync(response);
+                                    emitter.onComplete();
+                                }
+                            })
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(Schedulers.io())
+                                    .subscribe(new Consumer<String>() {
+                                        @Override
+                                        public void accept(String s) throws Exception {
+
+                                        }
+                                    }));
+                        }
                     }
                     @Override
                     public void addDispose(Disposable disposable) {
@@ -75,19 +95,21 @@ public abstract class BaseViewModel extends AndroidViewModel {
                 });
     }
 
-    @SuppressLint("CheckResult")
     private void hideFresh(){
-        Observable
+        mDisposable.add(Observable
                 .timer(1, TimeUnit.SECONDS)
                 .subscribe(new Consumer<Long>() {
                     @Override
                     public void accept(Long aLong) {
                         mRefreshing.set(false);
                     }
-                });
+                }));
     }
 
     protected void initDataLocal(){
+    }
+
+    protected void saveDateLocalAsync(BaseResponse baseResponse){
     }
 
     public void onDestroy(){

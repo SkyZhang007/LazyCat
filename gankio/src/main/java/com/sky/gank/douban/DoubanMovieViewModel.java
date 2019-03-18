@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 
 import com.sky.gank.BR;
 import com.sky.gank.R;
-import com.sky.gank.base.BaseApplication;
 import com.sky.gank.base.BaseResponse;
 import com.sky.gank.base.BaseViewModel;
 import com.sky.gank.base.MyRecyclerViewAdapter;
@@ -16,13 +15,9 @@ import com.sky.gank.command.BindingAction;
 import com.sky.gank.command.BindingCommand;
 import com.sky.gank.command.BindingConsumer;
 import com.sky.gank.data.douban.DoubanMovieData;
-import com.sky.gank.data.douban.DoubanMovieDataSource;
 import com.sky.gank.data.douban.LocalDoubanMovieDataSource;
 import com.sky.gank.data.douban.RemoteDoubanMovieDataSource;
 import com.sky.gank.data.douban.SubjectsBean;
-import com.sky.gank.data.meizi.RemoteMeiziDataSource;
-import com.sky.gank.greendao.DaoSession;
-import com.sky.gank.greendao.SubjectsBeanDao;
 import com.sky.gank.util.LogUtils;
 
 import io.reactivex.subjects.PublishSubject;
@@ -82,7 +77,6 @@ public class DoubanMovieViewModel extends BaseViewModel {
 
     @Override
     protected void onDataResponse(BaseResponse response) {
-        super.onDataResponse(response);
         updateList((DoubanMovieData) response);
     }
 
@@ -95,10 +89,12 @@ public class DoubanMovieViewModel extends BaseViewModel {
                 DoubanMovieItemViewModel viewModel = new DoubanMovieItemViewModel(DoubanMovieViewModel.this, subjectsBean);
                 mObservableList.add(viewModel);
             }
-            if(mSaveData) {
-                LocalDoubanMovieDataSource.getInstance().insertOrUpdateData(data.getSubjects());
-            }
         }
     }
 
+    @Override
+    protected void saveDateLocalAsync(BaseResponse baseResponse) {
+        DoubanMovieData data = (DoubanMovieData) baseResponse;
+        LocalDoubanMovieDataSource.getInstance().insertOrUpdateData(data.getSubjects());
+    }
 }

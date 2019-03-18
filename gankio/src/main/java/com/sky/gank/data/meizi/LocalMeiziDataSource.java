@@ -59,7 +59,7 @@ public class LocalMeiziDataSource implements MeiziDataSource{
     public void insertMeizi(List<MeizhiBean> meizhiBeans) {
         if(null != meizhiBeans && !meizhiBeans.isEmpty()){
             MeizhiBeanDao meizhiBeanDao = BaseApplication.getDaoSession().getMeizhiBeanDao();
-            meizhiBeanDao.insertInTx(meizhiBeans);
+            meizhiBeanDao.insertOrReplaceInTx(meizhiBeans);
         }
     }
 

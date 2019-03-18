@@ -7,9 +7,15 @@ import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
+import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Scheduler;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -59,7 +65,7 @@ public class LocalDoubanMovieDataSource implements DoubanMovieDataSource{
         return null;
     }
 
-    public void insertOrUpdateData(List<SubjectsBean> subjectsBeans) {
+    public void insertOrUpdateData(final List<SubjectsBean> subjectsBeans) {
         if(null != subjectsBeans && !subjectsBeans.isEmpty()){
             SubjectsBeanDao meizhiBeanDao = BaseApplication.getDaoSession().getSubjectsBeanDao();
             meizhiBeanDao.insertOrReplaceInTx(subjectsBeans);

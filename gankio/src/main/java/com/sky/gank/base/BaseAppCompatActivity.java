@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -80,7 +81,7 @@ public abstract class BaseAppCompatActivity<V extends ViewDataBinding, VM extend
         }
     }
 
-    protected void setToolBarBackground(int colorDrawable) {
+    protected void setToolBarBackground(@ColorRes int colorDrawable) {
         if(null != mToolbarViewModel){
             mToolbarViewModel.setBackground(colorDrawable);
         }

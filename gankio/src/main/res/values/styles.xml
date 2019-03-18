@@ -6,7 +6,10 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
-
+        <item name="floatingActionButtonStyle">@style/FloatingActionButtonOverlay</item>
+        <item name="materialCardViewStyle">@style/CardViewStyle</item>
+        <item name="buttonStyle">@style/CommonButton</item>
+        <item name="toolbarStyle">@style/CustomToolbar</item>
     </style>
 
     <style name="FloatingActionButtonOverlay" parent="Widget.Design.FloatingActionButton">
@@ -29,6 +32,10 @@
         <item name="rippleColor">@color/colorPrimary</item>
     </style>
 
+    <style name="CustomToolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="contentInsetStart">0dp</item><!-- 设置该属性边距为0dp-->
+    </style>
+
     <style name="RatingBarStyle" parent="Base.Widget.AppCompat.RatingBar.Small">
     </style>
 
@@ -37,6 +44,11 @@
         <item name="android:alpha">0.8</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
+    </style>
+
+    <style name="CommonButton" parent="Base.Widget.AppCompat.Button.Borderless">
+        <item name="android:minHeight">48dp</item>
+        <item name="android:minWidth">48dp</item>
     </style>
 
 </resources>
